@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>December 2026 MTC Batch | Missionary Registry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --input-bg: rgba(2, 6, 23, 0.6);
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --accent: #f59e0b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-focus: #38bdf8;
+      --success: #10b981;
+      --error: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.12), transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(245, 158, 11, 0.08), transparent 40%),
+        radial-gradient(circle at 50% 85%, rgba(14, 165, 233, 0.08), transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+      width: 100%;
+      flex: 1;
+    }
+
+    /* Top Bar */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 3rem;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+    }
+
+    .logo-text h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #fff;
+    }
+
+    .logo-text p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .db-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #34d399;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #34d399;
+      box-shadow: 0 0 8px #34d399;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.9); }
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      margin-bottom: 3.5rem;
+      position: relative;
+    }
+
+    .batch-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.9rem;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 9999px;
+      color: #fbbf24;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Main Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Card styling */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 0.35rem;
+    }
+
+    /* Form */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      font-size: 0.95rem;
+      color: #fff;
+      outline: none;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    }
+
+    input::placeholder {
+      color: #64748b;
+    }
+
+    .name-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      .name-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    button[type="submit"] {
+      background: linear-gradient(135deg, #0284c7, #38bdf8);
+      color: #0b1120;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 12px;
+      padding: 0.9rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    button[type="submit"]:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.35);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(0);
+    }
+
+    button[type="submit"]:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Alerts */
+    .alert {
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .alert.success {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+      display: block;
+    }
+
+    .alert.error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Directory / Roster */
+    .roster-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .roster-count {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+    }
+
+    .search-input {
+      background: var(--input-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.85rem;
+      color: #fff;
+      outline: none;
+      width: 180px;
+      transition: all 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+      width: 220px;
+    }
+
+    .missionary-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 0.25rem;
+    }
+
+    .missionary-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .missionary-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .missionary-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
+    }
+
+    .missionary-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 0.85rem 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .missionary-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(56, 189, 248, 0.3);
+      transform: translateX(2px);
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #1e293b, #334155);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #38bdf8;
+      flex-shrink: 0;
+    }
+
+    .item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .item-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      text-transform: uppercase;
+    }
+
+    .item-email {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-top: 0.15rem;
+    }
+
+    .item-date {
+      font-size: 0.75rem;
+      color: #64748b;
+      flex-shrink: 0;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: var(--text-muted);
+    }
+
+    .empty-state svg {
+      width: 48px;
+      height: 48px;
+      stroke: #475569;
+      margin-bottom: 0.75rem;
+    }
+
+    .empty-state p {
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: 0.8rem;
+      color: #64748b;
+      border-top: 1px solid var(--card-border);
+      margin-top: 4rem;
+    }
+
+    footer a {
+      color: #94a3b8;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="logo-group">
+        <div class="logo-badge">MTC</div>
+        <div class="logo-text">
+          <h1>December 2026 Batch</h1>
+          <p>Missionary Training Center Portal</p>
+        </div>
+      </div>
+
+      <div id="dbStatus" class="db-status-pill">
+        <span class="status-dot"></span>
+        <span id="dbStatusText">Turso Connecting...</span>
+      </div>
+    </header>
+
+    <div class="hero">
+      <div class="batch-tag">✦ Intake Registry 2026 ✦</div>
+      <h2>Welcome, Future Missionaries</h2>
+      <p>Connect with fellow missionaries preparing for the December 2026 MTC intake. Register your missionary details below to join the batch network.</p>
+    </div>
+
+    <div class="grid">
+      <!-- Registration Card -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/></svg>
+            Register Missionary
+          </h3>
+          <p class="card-desc">Enter your official missionary email and name.</p>
+        </div>
+
+        <div id="alertBox" class="alert"></div>
+
+        <form id="registerForm">
+          <div class="form-group">
+            <label for="email">Missionary Email</label>
+            <input type="email" id="email" name="email" required placeholder="e.g. elder.salviejo@missionary.org" autocomplete="email">
+          </div>
+
+          <div class="name-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" required placeholder="e.g. Mark">
+            </div>
+
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" required placeholder="e.g. Salviejo">
+            </div>
+          </div>
+
+          <button type="submit" id="submitBtn">
+            <span id="btnText">Register for Batch</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Directory Card -->
+      <div class="card">
+        <div class="roster-header">
+          <div>
+            <h3 class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent)"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              Registered Missionaries
+            </h3>
+            <p class="card-desc">Live roster for the December 2026 intake</p>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span id="rosterCount" class="roster-count">0 Missionaries</span>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search roster...">
+          </div>
+        </div>
+
+        <div id="missionaryList" class="missionary-list">
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <p>Loading registered batch members...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>December 2026 MTC Batch Homepage • Connected with Turso SQLite Database • Built for Missionaries</p>
+  </footer>
+
+  <script>
+    let missionaries = [];
+
+    const registerForm = document.getElementById('registerForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const alertBox = document.getElementById('alertBox');
+    const missionaryList = document.getElementById('missionaryList');
+    const rosterCount = document.getElementById('rosterCount');
+    const searchInput = document.getElementById('searchInput');
+    const dbStatusText = document.getElementById('dbStatusText');
+
+    function showAlert(msg, isError = false) {
+      alertBox.textContent = msg;
+      alertBox.className = `alert ${isError ? 'error' : 'success'}`;
+      if (!isError) {
+        setTimeout(() => {
+          alertBox.className = 'alert';
+        }, 5000);
+      }
+    }
+
+    async function checkHealth() {
+      try {
+        const res = await fetch('/api/health');
+        const data = await res.json();
+        if (data.status === 'ok') {
+          const modeName = data.db.mode === 'turso-cloud' ? 'Turso Cloud' : 'Turso SQLite (Local)';
+          dbStatusText.textContent = `${modeName} • Connected`;
+        } else {
+          dbStatusText.textContent = 'Database Issue';
+        }
+      } catch (err) {
+        dbStatusText.textContent = 'Server Offline';
+      }
+    }
+
+    async function loadMissionaries() {
+      try {
+        const res = await fetch('/api/missionaries');
+        const data = await res.json();
+        if (data.success) {
+          missionaries = data.data;
+          renderMissionaries();
+        }
+      } catch (err) {
+        console.error('Failed to load missionaries:', err);
+      }
+    }
+
+    function renderMissionaries(query = '') {
+      const q = query.toLowerCase().trim();
+      const filtered = missionaries.filter(m => {
+        const full = `${m.firstName} ${m.lastName}`.toLowerCase();
+        return full.includes(q) || m.email.toLowerCase().includes(q);
+      });
+
+      rosterCount.textContent = `${missionaries.length} ${missionaries.length === 1 ? 'Missionary' : 'Missionaries'}`;
+
+      if (filtered.length === 0) {
+        missionaryList.innerHTML = `
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            <p>${q ? 'No missionaries match your search.' : 'No missionaries registered yet. Be the first!'}</p>
+          </div>
+        `;
+        return;
+      }
+
+      missionaryList.innerHTML = filtered.map(m => {
+        const initials = `${(m.firstName[0] || '').toUpperCase()}${(m.lastName[0] || '').toUpperCase()}`;
+        const dateStr = m.createdAt ? new Date(m.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : '';
+        return `
+          <div class="missionary-item">
+            <div class="avatar">${initials}</div>
+            <div class="item-info">
+              <div class="item-name">
+                ${escapeHtml(m.firstName)} ${escapeHtml(m.lastName)}
+                <span class="item-badge">Dec 2026</span>
+              </div>
+              <div class="item-email" title="${escapeHtml(m.email)}">${escapeHtml(m.email)}</div>
+            </div>
+            ${dateStr ? `<div class="item-date">${dateStr}</div>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    searchInput.addEventListener('input', (e) => {
+      renderMissionaries(e.target.value);
+    });
+
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.className = 'alert';
+      
+      const email = document.getElementById('email').value.trim();
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+
+      if (!email || !firstName || !lastName) {
+        showAlert('Please fill in all fields.', true);
+        return;
+      }
+
+      submitBtn.disabled = true;
+      btnText.textContent = 'Registering...';
+
+      try {
+        const res = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, firstName, lastName })
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          showAlert(`Welcome, ${data.missionary.firstName}! You are registered for the December 2026 batch.`);
+          registerForm.reset();
+          await loadMissionaries();
+        } else {
+          showAlert(data.error || 'Failed to register. Please try again.', true);
+        }
+      } catch (err) {
+        showAlert('Network error communicating with server.', true);
+      } finally {
+        submitBtn.disabled = false;
+        btnText.textContent = 'Register for Batch';
+      }
+    });
+
+    // Initial load
+    checkHealth();
+    loadMissionaries();
+  </script>
+</body>
+</html>

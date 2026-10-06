@@ -1,0 +1,23 @@
+{
+  "name": "december-2026-mtc-batch",
+  "version": "1.0.0",
+  "description": "December 2026 MTC Batch Homepage with Missionary Registration & Turso Database integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "mtc",
+    "december-2026",
+    "missionary",
+    "turso",
+    "sqlite"
+  ],
+  "author": "AllensCreations",
+  "license": "MIT",
+  "dependencies": {
+    "@libsql/client": "^0.18.0",
+    "dotenv": "^17.4.2"
+  }
+}
