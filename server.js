@@ -11,7 +11,7 @@ function sendJson(res, statusCode, data) {
   res.writeHead(statusCode, {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type'
   });
   res.end(JSON.stringify(data));
@@ -57,14 +57,14 @@ const server = http.createServer(async (req, res) => {
   if (req.method === 'OPTIONS') {
     res.writeHead(204, {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type'
     });
     return res.end();
   }
 
   try {
-    // API: Health & DB status
+    // Health & DB status
     if (pathname === '/api/health' && req.method === 'GET') {
       const dbStatus = await db.getDbStatus();
       return sendJson(res, 200, {
@@ -74,7 +74,7 @@ const server = http.createServer(async (req, res) => {
       });
     }
 
-    // API: List Missionaries
+    // List Missionaries
     if (pathname === '/api/missionaries' && req.method === 'GET') {
       const missionaries = await db.listMissionaries();
       return sendJson(res, 200, {
@@ -84,7 +84,7 @@ const server = http.createServer(async (req, res) => {
       });
     }
 
-    // API: Register Missionary
+    // Register Missionary
     if (pathname === '/api/register' && req.method === 'POST') {
       const body = await parseJsonBody(req);
       const { email, firstName, lastName } = body;
@@ -92,7 +92,7 @@ const server = http.createServer(async (req, res) => {
       if (!email || !firstName || !lastName) {
         return sendJson(res, 400, {
           success: false,
-          error: 'Missing required fields: Missionary Email, First Name, and Last Name are required.'
+          error: 'Missionary Email, First Name, and Last Name are required.'
         });
       }
 
@@ -100,7 +100,7 @@ const server = http.createServer(async (req, res) => {
       if (!emailRegex.test(email.trim())) {
         return sendJson(res, 400, {
           success: false,
-          error: 'Please enter a valid email address.'
+          error: 'Please enter a valid missionary email address.'
         });
       }
 
@@ -114,7 +114,7 @@ const server = http.createServer(async (req, res) => {
 
         return sendJson(res, 201, {
           success: true,
-          message: 'Missionary registered successfully!',
+          message: 'Missionary registered successfully.',
           missionary
         });
       } catch (err) {
@@ -124,7 +124,7 @@ const server = http.createServer(async (req, res) => {
             error: err.message
           });
         }
-        console.error('Registration DB error:', err);
+        console.error('Registration error:', err);
         return sendJson(res, 500, {
           success: false,
           error: 'Database error occurred during registration.'
@@ -132,8 +132,70 @@ const server = http.createServer(async (req, res) => {
       }
     }
 
+    // Virtual Programs: List
+    if (pathname === '/api/programs' && req.method === 'GET') {
+      const programs = await db.listPrograms();
+      return sendJson(res, 200, {
+        success: true,
+        count: programs.length,
+        data: programs
+      });
+    }
+
+    // Virtual Programs: Save (Create or Update)
+    if (pathname === '/api/programs' && req.method === 'POST') {
+      const body = await parseJsonBody(req);
+      if (!body.title || !body.title.trim()) {
+        return sendJson(res, 400, {
+          success: false,
+          error: 'Program title is required.'
+        });
+      }
+
+      try {
+        const saved = await db.saveProgram(body);
+        return sendJson(res, 201, {
+          success: true,
+          message: 'Virtual Program saved successfully.',
+          data: saved
+        });
+      } catch (err) {
+        console.error('Save program error:', err);
+        return sendJson(res, 500, {
+          success: false,
+          error: 'Failed to save virtual program.'
+        });
+      }
+    }
+
+    // Virtual Programs: Get single program (/api/programs/:idOrSlug)
+    if (pathname.startsWith('/api/programs/') && req.method === 'GET') {
+      const identifier = decodeURIComponent(pathname.replace('/api/programs/', '').trim());
+      if (!identifier) {
+        return sendJson(res, 400, { success: false, error: 'Identifier required' });
+      }
+
+      const program = await db.getProgramBySlugOrId(identifier);
+      if (!program) {
+        return sendJson(res, 404, { success: false, error: 'Program not found' });
+      }
+
+      return sendJson(res, 200, { success: true, data: program });
+    }
+
+    // Virtual Programs: Delete program (/api/programs/:idOrSlug)
+    if (pathname.startsWith('/api/programs/') && req.method === 'DELETE') {
+      const identifier = decodeURIComponent(pathname.replace('/api/programs/', '').trim());
+      if (!identifier) {
+        return sendJson(res, 400, { success: false, error: 'Identifier required' });
+      }
+
+      await db.deleteProgram(identifier);
+      return sendJson(res, 200, { success: true, message: 'Program deleted successfully.' });
+    }
+
     // Static Frontend: Homepage
-    if (pathname === '/' || pathname === '/index.html') {
+    if (pathname === '/' || pathname === '/index.html' || pathname.startsWith('/program/')) {
       return serveStatic(res, path.join(PUBLIC_DIR, 'index.html'), 'text/html; charset=UTF-8');
     }
 
@@ -154,9 +216,9 @@ async function start() {
 
     server.listen(PORT, '0.0.0.0', () => {
       console.log(`\n======================================================`);
-      console.log(` December 2026 MTC Batch Homepage is Live!`);
-      console.log(` Local URL: http://localhost:${PORT}`);
-      console.log(` Database:  ${initResult.mode}`);
+      console.log(` December 2026 MTC Batch Portal & Program Maker`);
+      console.log(` Localhost URL: http://localhost:${PORT}`);
+      console.log(` Turso Mode:    ${initResult.mode}`);
       console.log(`======================================================\n`);
     });
   } catch (err) {

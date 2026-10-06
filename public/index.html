@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>December 2026 MTC Batch | Missionary Registry</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <title>December 2026 MTC Batch | Registry & Virtual Program Maker</title>
   <style>
     :root {
-      --bg: #0b1120;
-      --card-bg: rgba(15, 23, 42, 0.75);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --input-bg: rgba(2, 6, 23, 0.6);
-      --primary: #38bdf8;
-      --primary-hover: #0284c7;
-      --accent: #f59e0b;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --border-focus: #38bdf8;
-      --success: #10b981;
-      --error: #ef4444;
+      --bg-page: #f8fafc;
+      --surface: #ffffff;
+      --surface-subtle: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border: #cbd5e1;
+      --border-light: #e2e8f0;
+      --navy: #0f2744;
+      --navy-dark: #0a1b30;
+      --navy-light: #1e3a8a;
+      --gold: #b45309;
+      --focus-ring: #2563eb;
+      --danger: #b91c1c;
+      --success: #15803d;
+      --radius: 8px;
     }
 
     * {
@@ -30,595 +30,991 @@
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.5;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.12), transparent 40%),
-        radial-gradient(circle at 85% 25%, rgba(245, 158, 11, 0.08), transparent 40%),
-        radial-gradient(circle at 50% 85%, rgba(14, 165, 233, 0.08), transparent 50%);
-      background-attachment: fixed;
     }
 
-    .container {
-      max-width: 1100px;
+    /* Navigation Bar */
+    .navbar {
+      background-color: var(--navy);
+      color: #ffffff;
+      border-bottom: 2px solid var(--gold);
+      padding: 0 24px;
+    }
+
+    .nav-container {
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 2.5rem 1.5rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-brand-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .nav-brand-sub {
+      font-size: 0.75rem;
+      color: #cbd5e1;
+      display: block;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #f1f5f9;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: var(--radius);
+      cursor: pointer;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .tab-btn.active {
+      background: #ffffff;
+      color: var(--navy);
+      border-color: #ffffff;
+    }
+
+    .db-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 4px 10px;
+      border-radius: 4px;
+      color: #e2e8f0;
+    }
+
+    /* Main Container */
+    .main-content {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 24px;
       width: 100%;
       flex: 1;
     }
 
-    /* Top Bar */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--card-border);
-      margin-bottom: 3rem;
+    /* Section Headers */
+    .view-header {
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-light);
     }
 
-    .logo-group {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .logo-badge {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #0284c7, #38bdf8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 800;
-      font-size: 1.1rem;
-      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
-    }
-
-    .logo-text h1 {
-      font-size: 1.15rem;
+    .view-header h2 {
+      font-size: 1.5rem;
       font-weight: 700;
-      letter-spacing: -0.01em;
-      color: #fff;
+      color: var(--navy);
+      margin-bottom: 4px;
     }
 
-    .logo-text p {
-      font-size: 0.75rem;
+    .view-header p {
+      font-size: 0.95rem;
       color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
     }
 
-    .db-status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.4rem 0.85rem;
-      border-radius: 9999px;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #34d399;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background-color: #34d399;
-      box-shadow: 0 0 8px #34d399;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.9); }
-    }
-
-    /* Hero */
-    .hero {
-      text-align: center;
-      margin-bottom: 3.5rem;
-      position: relative;
-    }
-
-    .batch-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.35rem 0.9rem;
-      background: rgba(245, 158, 11, 0.12);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      border-radius: 9999px;
-      color: #fbbf24;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      margin-bottom: 1.25rem;
-      text-transform: uppercase;
-    }
-
-    .hero h2 {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(2.2rem, 5vw, 3.4rem);
-      font-weight: 700;
-      color: #ffffff;
-      line-height: 1.15;
-      margin-bottom: 1rem;
-      letter-spacing: -0.02em;
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      max-width: 650px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    /* Main Grid */
-    .grid {
+    /* Split Grid */
+    .grid-two {
       display: grid;
-      grid-template-columns: 1fr 1.35fr;
-      gap: 2rem;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 24px;
       align-items: start;
     }
 
     @media (max-width: 860px) {
-      .grid {
+      .grid-two {
         grid-template-columns: 1fr;
       }
     }
 
-    /* Card styling */
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    /* Cards */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
     }
 
-    .card-header {
-      margin-bottom: 1.5rem;
-    }
-
-    .card-title {
-      font-size: 1.25rem;
+    .panel-title {
+      font-size: 1.15rem;
       font-weight: 700;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      color: var(--navy);
+      margin-bottom: 8px;
     }
 
-    .card-desc {
-      color: var(--text-muted);
+    .panel-subtitle {
       font-size: 0.85rem;
-      margin-top: 0.35rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
     }
 
-    /* Form */
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
+    /* Forms */
     .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
+      margin-bottom: 16px;
     }
 
     label {
+      display: block;
       font-size: 0.825rem;
       font-weight: 600;
-      color: #cbd5e1;
-    }
-
-    .input-wrapper {
-      position: relative;
+      color: var(--navy);
+      margin-bottom: 6px;
     }
 
     input[type="text"],
-    input[type="email"] {
+    input[type="email"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea {
       width: 100%;
-      background: var(--input-bg);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 12px;
-      padding: 0.8rem 1rem;
-      font-size: 0.95rem;
-      color: #fff;
-      outline: none;
-      transition: all 0.2s ease;
+      padding: 9px 12px;
+      font-size: 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #ffffff;
+      color: var(--text-main);
       font-family: inherit;
     }
 
-    input[type="text"]:focus,
-    input[type="email"]:focus {
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--focus-ring);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
     }
 
-    input::placeholder {
-      color: #64748b;
-    }
-
-    .name-row {
+    .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      gap: 12px;
     }
 
-    @media (max-width: 480px) {
-      .name-row {
+    @media (max-width: 500px) {
+      .form-row {
         grid-template-columns: 1fr;
       }
     }
 
-    button[type="submit"] {
-      background: linear-gradient(135deg, #0284c7, #38bdf8);
-      color: #0b1120;
-      font-weight: 700;
-      font-size: 0.95rem;
-      border: none;
-      border-radius: 12px;
-      padding: 0.9rem 1.5rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
+    .btn {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
+      gap: 8px;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: var(--radius);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color 0.1s, border-color 0.1s;
     }
 
-    button[type="submit"]:hover {
-      opacity: 0.95;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(56, 189, 248, 0.35);
+    .btn-primary {
+      background-color: var(--navy);
+      color: #ffffff;
     }
 
-    button[type="submit"]:active {
-      transform: translateY(0);
+    .btn-primary:hover {
+      background-color: var(--navy-dark);
     }
 
-    button[type="submit"]:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
+    .btn-primary:active {
+      transform: translateY(1px);
     }
 
-    /* Alerts */
+    .btn-outline {
+      background-color: #ffffff;
+      border-color: var(--border);
+      color: var(--navy);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--surface-subtle);
+      border-color: #94a3b8;
+    }
+
+    .btn-secondary {
+      background-color: var(--gold);
+      color: #ffffff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #92400e;
+    }
+
+    .btn-danger {
+      background-color: #fee2e2;
+      color: var(--danger);
+      border-color: #fca5a5;
+    }
+
+    .btn-danger:hover {
+      background-color: #fecaca;
+    }
+
+    /* Notifications */
     .alert {
-      padding: 0.85rem 1rem;
-      border-radius: 12px;
+      padding: 12px 16px;
+      border-radius: var(--radius);
       font-size: 0.85rem;
-      line-height: 1.4;
+      margin-bottom: 16px;
       display: none;
-      animation: fadeIn 0.3s ease;
     }
 
     .alert.success {
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      color: #6ee7b7;
+      background-color: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: var(--success);
       display: block;
     }
 
     .alert.error {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.4);
-      color: #fca5a5;
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      color: var(--danger);
       display: block;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Directory / Roster */
-    .roster-header {
+    /* Roster Table */
+    .roster-tools {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.25rem;
-      gap: 1rem;
-      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
     }
 
     .roster-count {
       font-size: 0.85rem;
-      color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.05);
-      padding: 0.25rem 0.6rem;
-      border-radius: 9999px;
-    }
-
-    .search-input {
-      background: var(--input-bg);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 0.5rem 0.85rem;
-      font-size: 0.85rem;
-      color: #fff;
-      outline: none;
-      width: 180px;
-      transition: all 0.2s;
-    }
-
-    .search-input:focus {
-      border-color: var(--primary);
-      width: 220px;
-    }
-
-    .missionary-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      max-height: 480px;
-      overflow-y: auto;
-      padding-right: 0.25rem;
-    }
-
-    .missionary-list::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .missionary-list::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .missionary-list::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 3px;
-    }
-
-    .missionary-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 14px;
-      padding: 0.85rem 1rem;
-      transition: all 0.2s ease;
-    }
-
-    .missionary-item:hover {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(56, 189, 248, 0.3);
-      transform: translateX(2px);
-    }
-
-    .avatar {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #1e293b, #334155);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: #38bdf8;
-      flex-shrink: 0;
-    }
-
-    .item-info {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .item-name {
       font-weight: 600;
-      font-size: 0.95rem;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
+      color: var(--text-muted);
     }
 
-    .item-badge {
-      font-size: 0.65rem;
+    .table-container {
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      overflow-x: auto;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.875rem;
+    }
+
+    th {
+      background-color: var(--surface-subtle);
+      color: var(--navy);
       font-weight: 700;
-      padding: 0.15rem 0.45rem;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-main);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: #f8fafc;
+    }
+
+    .badge-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      background-color: #e2e8f0;
+      color: var(--navy);
+      padding: 2px 6px;
       border-radius: 4px;
-      background: rgba(56, 189, 248, 0.15);
-      color: #38bdf8;
       text-transform: uppercase;
     }
 
-    .item-email {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      margin-top: 0.15rem;
-    }
-
-    .item-date {
+    .btn-action-small {
+      padding: 4px 8px;
       font-size: 0.75rem;
-      color: #64748b;
-      flex-shrink: 0;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: var(--navy);
+      cursor: pointer;
     }
 
-    .empty-state {
+    .btn-action-small:hover {
+      background-color: var(--surface-subtle);
+    }
+
+    /* Program Maker View */
+    .program-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .program-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .program-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    .agenda-section-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--navy);
+      margin: 18px 0 10px 0;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .role-input-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1.5fr;
+      gap: 12px;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+
+    @media (max-width: 600px) {
+      .role-input-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .role-label {
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* Program Bulletin Paper Preview */
+    .bulletin-paper {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+      border-radius: 4px;
+      padding: 40px 36px;
+      color: #0f172a;
+      font-family: "Georgia", "Times New Roman", serif;
+      position: sticky;
+      top: 24px;
+    }
+
+    .bulletin-header {
       text-align: center;
-      padding: 3rem 1.5rem;
-      color: var(--text-muted);
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 2px solid #0f2744;
     }
 
-    .empty-state svg {
-      width: 48px;
-      height: 48px;
-      stroke: #475569;
-      margin-bottom: 0.75rem;
+    .bulletin-church {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #475569;
+      margin-bottom: 6px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 600;
     }
 
-    .empty-state p {
+    .bulletin-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0f2744;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .bulletin-occasion {
+      font-size: 1rem;
+      color: #b45309;
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+
+    .bulletin-meta {
+      font-size: 0.85rem;
+      color: #334155;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .bulletin-officers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 16px 0;
+      padding: 12px 0;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 0.85rem;
+    }
+
+    .officer-row span:first-child {
+      font-weight: 600;
+      color: #0f2744;
+    }
+
+    .bulletin-order-title {
+      text-align: center;
       font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin: 20px 0 16px 0;
+      color: #0f2744;
+      font-weight: 700;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .order-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 4px;
+      border-bottom: 1px dotted #cbd5e1;
+      font-size: 0.95rem;
+    }
+
+    .order-label {
+      font-weight: 600;
+      color: #0f2744;
+    }
+
+    .order-assignee {
+      text-align: right;
+      color: #334155;
+    }
+
+    .bulletin-scripture {
+      background: #f8fafc;
+      border-left: 3px solid #b45309;
+      padding: 12px 16px;
+      margin-top: 20px;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: #334155;
+    }
+
+    .bulletin-scripture-ref {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #b45309;
+      text-transform: uppercase;
+      margin-top: 4px;
+      font-style: normal;
+    }
+
+    .bulletin-notes {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: #475569;
+      line-height: 1.4;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+
+      .navbar,
+      .program-actions,
+      .program-controls,
+      .view-header,
+      footer,
+      #registrationView,
+      .no-print {
+        display: none !important;
+      }
+
+      .main-content {
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+
+      .program-layout {
+        display: block !important;
+      }
+
+      .bulletin-paper {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        position: static !important;
+      }
     }
 
     footer {
-      text-align: center;
-      padding: 2.5rem 1.5rem;
+      border-top: 1px solid var(--border-light);
+      background-color: var(--surface);
+      padding: 20px 24px;
       font-size: 0.8rem;
-      color: #64748b;
-      border-top: 1px solid var(--card-border);
-      margin-top: 4rem;
-    }
-
-    footer a {
-      color: #94a3b8;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      color: var(--primary);
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <div class="logo-group">
-        <div class="logo-badge">MTC</div>
-        <div class="logo-text">
-          <h1>December 2026 Batch</h1>
-          <p>Missionary Training Center Portal</p>
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <div>
+          <span class="nav-brand-title">December 2026 MTC Batch</span>
+          <span class="nav-brand-sub">Missionary Intake Registry & Virtual Program Maker</span>
         </div>
       </div>
 
-      <div id="dbStatus" class="db-status-pill">
-        <span class="status-dot"></span>
-        <span id="dbStatusText">Turso Connecting...</span>
+      <div class="nav-tabs no-print">
+        <button id="tabRegisterBtn" class="tab-btn active" onclick="switchTab('register')">Missionary Registration</button>
+        <button id="tabProgramBtn" class="tab-btn" onclick="switchTab('program')">Virtual Program Maker</button>
       </div>
-    </header>
 
-    <div class="hero">
-      <div class="batch-tag">✦ Intake Registry 2026 ✦</div>
-      <h2>Welcome, Future Missionaries</h2>
-      <p>Connect with fellow missionaries preparing for the December 2026 MTC intake. Register your missionary details below to join the batch network.</p>
+      <div class="no-print">
+        <span id="dbPill" class="db-badge">Checking Turso...</span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+
+    <!-- VIEW 1: Missionary Registration & Batch Roster -->
+    <div id="registrationView">
+      <div class="view-header">
+        <h2>December 2026 Batch Intake Registry</h2>
+        <p>Register your missionary information to connect with companions and join batch meeting agendas.</p>
+      </div>
+
+      <div class="grid-two">
+        <!-- Form Panel -->
+        <div class="panel">
+          <h3 class="panel-title">Missionary Registration</h3>
+          <p class="panel-subtitle">Enter your official email and name for the December 2026 intake.</p>
+
+          <div id="regAlert" class="alert"></div>
+
+          <form id="regForm" onsubmit="handleRegister(event)">
+            <div class="form-group">
+              <label for="email">Missionary Email</label>
+              <input type="email" id="email" required placeholder="elder.salviejo@missionary.org" autocomplete="email">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" required placeholder="Mark">
+              </div>
+
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" required placeholder="Salviejo">
+              </div>
+            </div>
+
+            <button type="submit" id="regBtn" class="btn btn-primary" style="width: 100%;">
+              Register for December 2026 Batch
+            </button>
+          </form>
+        </div>
+
+        <!-- Roster Panel -->
+        <div class="panel">
+          <div class="roster-tools">
+            <div>
+              <h3 class="panel-title" style="margin-bottom: 2px;">Batch Roster</h3>
+              <span id="rosterTotal" class="roster-count">0 Missionaries Registered</span>
+            </div>
+            <input type="text" id="searchRoster" placeholder="Filter by name or email..." style="max-width: 200px;" oninput="filterRoster(this.value)">
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Missionary Email</th>
+                  <th>Batch</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="rosterTableBody">
+                <tr>
+                  <td colspan="4" style="text-align: center; color: var(--text-muted); padding: 24px;">Loading missionaries...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="grid">
-      <!-- Registration Card -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/></svg>
-            Register Missionary
-          </h3>
-          <p class="card-desc">Enter your official missionary email and name.</p>
+    <!-- VIEW 2: Virtual Program Maker & Bulletin -->
+    <div id="programView" style="display: none;">
+      <div class="view-header no-print">
+        <h2>Virtual Program Maker</h2>
+        <p>Compose, save, and print official meeting programs for the December 2026 MTC Batch.</p>
+      </div>
+
+      <div class="program-actions no-print">
+        <button class="btn btn-primary" onclick="saveCurrentProgram()">Save Program to Turso</button>
+        <button class="btn btn-outline" onclick="window.print()">Print Bulletin / Save PDF</button>
+        <button class="btn btn-outline" onclick="loadTemplate('devotional')">Load Devotional Template</button>
+        <button class="btn btn-outline" onclick="loadTemplate('farewell')">Load Farewell Template</button>
+
+        <div style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
+          <label style="margin: 0; font-size: 0.8rem;">Saved Programs:</label>
+          <select id="savedProgramsSelect" style="width: 220px;" onchange="onSelectSavedProgram(this.value)">
+            <option value="">New Program...</option>
+          </select>
+          <button class="btn btn-danger btn-action-small" onclick="deleteCurrentProgram()" title="Delete Program">Delete</button>
         </div>
+      </div>
 
-        <div id="alertBox" class="alert"></div>
+      <div id="programAlert" class="alert no-print"></div>
 
-        <form id="registerForm">
+      <div class="program-layout">
+        <!-- Editor Controls (Left) -->
+        <div class="panel program-controls no-print">
+          <h3 class="panel-title">Meeting Details</h3>
+
           <div class="form-group">
-            <label for="email">Missionary Email</label>
-            <input type="email" id="email" name="email" required placeholder="e.g. elder.salviejo@missionary.org" autocomplete="email">
+            <label for="pTitle">Meeting Title</label>
+            <input type="text" id="pTitle" value="December 2026 MTC Batch Devotional" oninput="updatePreview()">
           </div>
 
-          <div class="name-row">
+          <div class="form-row">
             <div class="form-group">
-              <label for="firstName">First Name</label>
-              <input type="text" id="firstName" name="firstName" required placeholder="e.g. Mark">
+              <label for="pOccasion">Occasion / Meeting Type</label>
+              <select id="pOccasion" onchange="updatePreview()">
+                <option value="Batch Devotional">Batch Devotional</option>
+                <option value="Missionary Farewell">Missionary Farewell</option>
+                <option value="Testimony Meeting">Testimony Meeting</option>
+                <option value="District Fireside">District Fireside</option>
+                <option value="Orientation Assembly">Orientation Assembly</option>
+              </select>
             </div>
 
             <div class="form-group">
-              <label for="lastName">Last Name</label>
-              <input type="text" id="lastName" name="lastName" required placeholder="e.g. Salviejo">
+              <label for="pLocation">Location or Virtual Room</label>
+              <input type="text" id="pLocation" value="MTC Auditorium / Zoom Hall 4" oninput="updatePreview()">
             </div>
           </div>
 
-          <button type="submit" id="submitBtn">
-            <span id="btnText">Register for Batch</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
-        </form>
-      </div>
-
-      <!-- Directory Card -->
-      <div class="card">
-        <div class="roster-header">
-          <div>
-            <h3 class="card-title">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent)"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              Registered Missionaries
-            </h3>
-            <p class="card-desc">Live roster for the December 2026 intake</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pDate">Date</label>
+              <input type="date" id="pDate" value="2026-12-06" oninput="updatePreview()">
+            </div>
+            <div class="form-group">
+              <label for="pTime">Time</label>
+              <input type="time" id="pTime" value="18:00" oninput="updatePreview()">
+            </div>
           </div>
 
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <span id="rosterCount" class="roster-count">0 Missionaries</span>
-            <input type="text" id="searchInput" class="search-input" placeholder="Search roster...">
+          <div class="agenda-section-title">Leadership & Conducting</div>
+
+          <div class="role-input-row">
+            <span class="role-label">Presiding Leader:</span>
+            <input type="text" id="pPresiding" value="MTC Branch Presidency" oninput="updatePreview()">
+          </div>
+
+          <div class="role-input-row">
+            <span class="role-label">Conducting Leader:</span>
+            <div style="display: flex; gap: 6px;">
+              <input type="text" id="pConducting" value="District Leader" oninput="updatePreview()" style="flex: 1;">
+              <select style="width: 120px;" onchange="assignToInput('pConducting', this.value)">
+                <option value="">+ Assign</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="role-input-row">
+            <span class="role-label">Chorister:</span>
+            <input type="text" id="pChorister" value="Sister Missionary" oninput="updatePreview()">
+          </div>
+
+          <div class="role-input-row">
+            <span class="role-label">Pianist / Organist:</span>
+            <input type="text" id="pPianist" value="Elder Missionary" oninput="updatePreview()">
+          </div>
+
+          <div class="agenda-section-title">Order of Service</div>
+
+          <div class="role-input-row">
+            <span class="role-label">Opening Hymn:</span>
+            <input type="text" id="pOpeningHymn" value="Called to Serve (Hymn 249)" oninput="updatePreview()">
+          </div>
+
+          <div class="role-input-row">
+            <span class="role-label">Invocation (Opening Prayer):</span>
+            <div style="display: flex; gap: 6px;">
+              <input type="text" id="pInvocation" value="Elder Salviejo" oninput="updatePreview()" style="flex: 1;">
+              <select style="width: 120px;" onchange="assignToInput('pInvocation', this.value)">
+                <option value="">+ Assign</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="role-input-row">
+            <span class="role-label">Scripture / Batch Theme:</span>
+            <input type="text" id="pScriptureTheme" value="Doctrine and Covenants 4:2" oninput="updatePreview()">
+          </div>
+
+          <div class="role-input-row">
+            <span class="role-label">Speaker 1:</span>
+            <div style="display: flex; gap: 6px;">
+              <input type="text" id="pSpeaker1" value="Batch Representative" oninput="updatePreview()" style="flex: 1;">
+              <select style="width: 120px;" onchange="assignToInput('pSpeaker1', this.value)">
+                <option value="">+ Assign</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="role-input-row">
+            <span class="role-label">Special Musical Item:</span>
+            <input type="text" id="pMusicalNumber" value="Batch Choir: I Will Go and Do" oninput="updatePreview()">
+          </div>
+
+          <div class="role-input-row">
+            <span class="role-label">Speaker 2 / Keynote:</span>
+            <div style="display: flex; gap: 6px;">
+              <input type="text" id="pSpeaker2" value="MTC Instructor" oninput="updatePreview()" style="flex: 1;">
+              <select style="width: 120px;" onchange="assignToInput('pSpeaker2', this.value)">
+                <option value="">+ Assign</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="role-input-row">
+            <span class="role-label">Missionary Testimonies:</span>
+            <input type="text" id="pTestimoniesNote" value="Open Batch Testimonies (2 minutes each)" oninput="updatePreview()">
+          </div>
+
+          <div class="role-input-row">
+            <span class="role-label">Closing Remarks:</span>
+            <input type="text" id="pClosingRemarks" value="Conducting Officer" oninput="updatePreview()">
+          </div>
+
+          <div class="role-input-row">
+            <span class="role-label">Closing Hymn:</span>
+            <input type="text" id="pClosingHymn" value="God Be with You Till We Meet Again (Hymn 152)" oninput="updatePreview()">
+          </div>
+
+          <div class="role-input-row">
+            <span class="role-label">Benediction (Closing Prayer):</span>
+            <div style="display: flex; gap: 6px;">
+              <input type="text" id="pBenediction" value="Sister Missionary" oninput="updatePreview()" style="flex: 1;">
+              <select style="width: 120px;" onchange="assignToInput('pBenediction', this.value)">
+                <option value="">+ Assign</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 16px;">
+            <label for="pNotes">Batch Scripture Quotation or Announcements</label>
+            <textarea id="pNotes" rows="3" oninput="updatePreview()">Therefore, O ye that embark in the service of God, see that ye serve him with all your heart, might, mind and strength, that ye may stand blameless before God at the last day.</textarea>
           </div>
         </div>
 
-        <div id="missionaryList" class="missionary-list">
-          <div class="empty-state">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <p>Loading registered batch members...</p>
+        <!-- Live Bulletin Paper (Right) -->
+        <div>
+          <div class="bulletin-paper" id="printableBulletin">
+            <div class="bulletin-header">
+              <div class="bulletin-church">Missionary Training Center</div>
+              <h1 class="bulletin-title" id="prevTitle">December 2026 MTC Batch Devotional</h1>
+              <div class="bulletin-occasion" id="prevOccasion">Batch Devotional</div>
+              <div class="bulletin-meta" id="prevMeta">December 6, 2026 at 6:00 PM | MTC Auditorium / Zoom Hall 4</div>
+            </div>
+
+            <div class="bulletin-officers">
+              <div class="officer-row">
+                <span>Presiding:</span> <span id="prevPresiding">MTC Branch Presidency</span>
+              </div>
+              <div class="officer-row">
+                <span>Conducting:</span> <span id="prevConducting">District Leader</span>
+              </div>
+              <div class="officer-row">
+                <span>Chorister:</span> <span id="prevChorister">Sister Missionary</span>
+              </div>
+              <div class="officer-row">
+                <span>Pianist:</span> <span id="prevPianist">Elder Missionary</span>
+              </div>
+            </div>
+
+            <div class="bulletin-order-title">Order of Service</div>
+
+            <div class="order-list">
+              <div class="order-item">
+                <span class="order-label">Opening Hymn</span>
+                <span class="order-assignee" id="prevOpeningHymn">Called to Serve (Hymn 249)</span>
+              </div>
+
+              <div class="order-item">
+                <span class="order-label">Invocation</span>
+                <span class="order-assignee" id="prevInvocation">Elder Salviejo</span>
+              </div>
+
+              <div class="order-item" id="rowScripture">
+                <span class="order-label">Scripture Theme</span>
+                <span class="order-assignee" id="prevScriptureTheme">Doctrine and Covenants 4:2</span>
+              </div>
+
+              <div class="order-item" id="rowSpeaker1">
+                <span class="order-label">Speaker</span>
+                <span class="order-assignee" id="prevSpeaker1">Batch Representative</span>
+              </div>
+
+              <div class="order-item" id="rowMusical">
+                <span class="order-label">Special Musical Number</span>
+                <span class="order-assignee" id="prevMusicalNumber">Batch Choir: I Will Go and Do</span>
+              </div>
+
+              <div class="order-item" id="rowSpeaker2">
+                <span class="order-label">Speaker</span>
+                <span class="order-assignee" id="prevSpeaker2">MTC Instructor</span>
+              </div>
+
+              <div class="order-item" id="rowTestimonies">
+                <span class="order-label">Missionary Testimonies</span>
+                <span class="order-assignee" id="prevTestimonies">Open Batch Testimonies (2 minutes each)</span>
+              </div>
+
+              <div class="order-item" id="rowClosingRemarks">
+                <span class="order-label">Closing Remarks</span>
+                <span class="order-assignee" id="prevClosingRemarks">Conducting Officer</span>
+              </div>
+
+              <div class="order-item">
+                <span class="order-label">Closing Hymn</span>
+                <span class="order-assignee" id="prevClosingHymn">God Be with You Till We Meet Again (Hymn 152)</span>
+              </div>
+
+              <div class="order-item">
+                <span class="order-label">Benediction</span>
+                <span class="order-assignee" id="prevBenediction">Sister Missionary</span>
+              </div>
+            </div>
+
+            <div class="bulletin-scripture" id="scriptureBox">
+              <div id="prevNotes">Therefore, O ye that embark in the service of God, see that ye serve him with all your heart, might, mind and strength, that ye may stand blameless before God at the last day.</div>
+              <div class="bulletin-scripture-ref" id="prevNotesRef">December 2026 Batch Scripture</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <footer>
-    <p>December 2026 MTC Batch Homepage • Connected with Turso SQLite Database • Built for Missionaries</p>
+  </main>
+
+  <footer class="no-print">
+    December 2026 MTC Batch Portal and Virtual Program Maker. Connected with Turso SQLite Database.
   </footer>
 
   <script>
     let missionaries = [];
+    let savedPrograms = [];
+    let currentProgramSlug = '';
 
-    const registerForm = document.getElementById('registerForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const btnText = document.getElementById('btnText');
-    const alertBox = document.getElementById('alertBox');
-    const missionaryList = document.getElementById('missionaryList');
-    const rosterCount = document.getElementById('rosterCount');
-    const searchInput = document.getElementById('searchInput');
-    const dbStatusText = document.getElementById('dbStatusText');
+    function switchTab(tab) {
+      const regView = document.getElementById('registrationView');
+      const progView = document.getElementById('programView');
+      const regBtn = document.getElementById('tabRegisterBtn');
+      const progBtn = document.getElementById('tabProgramBtn');
 
-    function showAlert(msg, isError = false) {
-      alertBox.textContent = msg;
-      alertBox.className = `alert ${isError ? 'error' : 'success'}`;
-      if (!isError) {
-        setTimeout(() => {
-          alertBox.className = 'alert';
-        }, 5000);
+      if (tab === 'register') {
+        regView.style.display = 'block';
+        progView.style.display = 'none';
+        regBtn.classList.add('active');
+        progBtn.classList.remove('active');
+      } else {
+        regView.style.display = 'none';
+        progView.style.display = 'block';
+        regBtn.classList.remove('active');
+        progBtn.classList.add('active');
+        updatePreview();
       }
     }
 
     async function checkHealth() {
+      const pill = document.getElementById('dbPill');
       try {
         const res = await fetch('/api/health');
         const data = await res.json();
         if (data.status === 'ok') {
-          const modeName = data.db.mode === 'turso-cloud' ? 'Turso Cloud' : 'Turso SQLite (Local)';
-          dbStatusText.textContent = `${modeName} • Connected`;
+          const mode = data.db.mode === 'turso-cloud' ? 'Turso Cloud' : 'Turso SQLite';
+          pill.textContent = `${mode} Connected`;
+          pill.style.background = 'rgba(21, 128, 61, 0.2)';
+          pill.style.color = '#86efac';
         } else {
-          dbStatusText.textContent = 'Database Issue';
+          pill.textContent = 'Database Warning';
         }
-      } catch (err) {
-        dbStatusText.textContent = 'Server Offline';
+      } catch (e) {
+        pill.textContent = 'Server Offline';
       }
     }
 
@@ -628,49 +1024,349 @@
         const data = await res.json();
         if (data.success) {
           missionaries = data.data;
-          renderMissionaries();
+          renderRoster(missionaries);
+          populateAssignDropdowns();
         }
-      } catch (err) {
-        console.error('Failed to load missionaries:', err);
+      } catch (e) {
+        console.error('Failed to load roster:', e);
       }
     }
 
-    function renderMissionaries(query = '') {
+    function renderRoster(list) {
+      const tbody = document.getElementById('rosterTableBody');
+      const countEl = document.getElementById('rosterTotal');
+      countEl.textContent = `${list.length} ${list.length === 1 ? 'Missionary' : 'Missionaries'} Registered`;
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 24px;">No missionaries registered yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(m => `
+        <tr>
+          <td><strong>${escapeHtml(m.firstName)} ${escapeHtml(m.lastName)}</strong></td>
+          <td style="color: var(--navy-light);">${escapeHtml(m.email)}</td>
+          <td><span class="badge-tag">${escapeHtml(m.batch || 'Dec 2026')}</span></td>
+          <td>
+            <button class="btn-action-small" onclick="quickAssignToProgram('${escapeHtml(m.firstName)} ${escapeHtml(m.lastName)}')">Assign to Program</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function filterRoster(query) {
       const q = query.toLowerCase().trim();
       const filtered = missionaries.filter(m => {
         const full = `${m.firstName} ${m.lastName}`.toLowerCase();
         return full.includes(q) || m.email.toLowerCase().includes(q);
       });
+      renderRoster(filtered);
+    }
 
-      rosterCount.textContent = `${missionaries.length} ${missionaries.length === 1 ? 'Missionary' : 'Missionaries'}`;
+    async function handleRegister(e) {
+      e.preventDefault();
+      const alert = document.getElementById('regAlert');
+      const btn = document.getElementById('regBtn');
 
-      if (filtered.length === 0) {
-        missionaryList.innerHTML = `
-          <div class="empty-state">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-            <p>${q ? 'No missionaries match your search.' : 'No missionaries registered yet. Be the first!'}</p>
-          </div>
-        `;
+      const email = document.getElementById('email').value.trim();
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+
+      alert.className = 'alert';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, firstName, lastName })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          alert.textContent = `Missionary ${data.missionary.firstName} ${data.missionary.lastName} registered successfully.`;
+          alert.className = 'alert success';
+          document.getElementById('regForm').reset();
+          await loadMissionaries();
+        } else {
+          alert.textContent = data.error || 'Failed to register missionary.';
+          alert.className = 'alert error';
+        }
+      } catch (err) {
+        alert.textContent = 'Network communication error.';
+        alert.className = 'alert error';
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    function populateAssignDropdowns() {
+      const selects = document.querySelectorAll('.role-input-row select');
+      selects.forEach(sel => {
+        const currentVal = sel.value;
+        sel.innerHTML = '<option value="">+ Assign</option>' + missionaries.map(m => `
+          <option value="${escapeHtml(m.firstName)} ${escapeHtml(m.lastName)}">${escapeHtml(m.firstName)} ${escapeHtml(m.lastName)}</option>
+        `).join('');
+        sel.value = currentVal;
+      });
+    }
+
+    function assignToInput(inputId, value) {
+      if (!value) return;
+      const input = document.getElementById(inputId);
+      if (input) {
+        input.value = value;
+        updatePreview();
+      }
+    }
+
+    function quickAssignToProgram(name) {
+      switchTab('program');
+      document.getElementById('pSpeaker1').value = name;
+      updatePreview();
+      showProgramAlert(`Assigned ${name} as Speaker 1 in the Virtual Program.`, false);
+    }
+
+    function showProgramAlert(msg, isError = false) {
+      const alert = document.getElementById('programAlert');
+      alert.textContent = msg;
+      alert.className = `alert ${isError ? 'error' : 'success'} no-print`;
+      setTimeout(() => { alert.className = 'alert no-print'; }, 4000);
+    }
+
+    function updatePreview() {
+      document.getElementById('prevTitle').textContent = document.getElementById('pTitle').value || 'MTC Batch Program';
+      document.getElementById('prevOccasion').textContent = document.getElementById('pOccasion').value;
+
+      const dateVal = document.getElementById('pDate').value;
+      const timeVal = document.getElementById('pTime').value;
+      const locVal = document.getElementById('pLocation').value;
+
+      let dateFormatted = dateVal;
+      if (dateVal) {
+        const parts = dateVal.split('-');
+        if (parts.length === 3) {
+          const d = new Date(parts[0], parts[1] - 1, parts[2]);
+          dateFormatted = d.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+        }
+      }
+
+      document.getElementById('prevMeta').textContent = `${dateFormatted || 'Date'} at ${timeVal || 'Time'} | ${locVal || 'Location'}`;
+      document.getElementById('prevPresiding').textContent = document.getElementById('pPresiding').value || 'Branch Presidency';
+      document.getElementById('prevConducting').textContent = document.getElementById('pConducting').value || 'Conducting Officer';
+      document.getElementById('prevChorister').textContent = document.getElementById('pChorister').value || 'Chorister';
+      document.getElementById('prevPianist').textContent = document.getElementById('pPianist').value || 'Pianist';
+
+      document.getElementById('prevOpeningHymn').textContent = document.getElementById('pOpeningHymn').value || 'Opening Hymn';
+      document.getElementById('prevInvocation').textContent = document.getElementById('pInvocation').value || 'Selected Missionary';
+
+      const script = document.getElementById('pScriptureTheme').value;
+      toggleItem('rowScripture', 'prevScriptureTheme', script);
+
+      const spk1 = document.getElementById('pSpeaker1').value;
+      toggleItem('rowSpeaker1', 'prevSpeaker1', spk1);
+
+      const music = document.getElementById('pMusicalNumber').value;
+      toggleItem('rowMusical', 'prevMusicalNumber', music);
+
+      const spk2 = document.getElementById('pSpeaker2').value;
+      toggleItem('rowSpeaker2', 'prevSpeaker2', spk2);
+
+      const test = document.getElementById('pTestimoniesNote').value;
+      toggleItem('rowTestimonies', 'prevTestimonies', test);
+
+      const closeRem = document.getElementById('pClosingRemarks').value;
+      toggleItem('rowClosingRemarks', 'prevClosingRemarks', closeRem);
+
+      document.getElementById('prevClosingHymn').textContent = document.getElementById('pClosingHymn').value || 'Closing Hymn';
+      document.getElementById('prevBenediction').textContent = document.getElementById('pBenediction').value || 'Selected Missionary';
+
+      const notes = document.getElementById('pNotes').value;
+      const notesBox = document.getElementById('scriptureBox');
+      if (notes.trim()) {
+        notesBox.style.display = 'block';
+        document.getElementById('prevNotes').textContent = notes;
+      } else {
+        notesBox.style.display = 'none';
+      }
+    }
+
+    function toggleItem(rowId, textId, value) {
+      const row = document.getElementById(rowId);
+      const text = document.getElementById(textId);
+      if (value && value.trim()) {
+        row.style.display = 'flex';
+        text.textContent = value.trim();
+      } else {
+        row.style.display = 'none';
+      }
+    }
+
+    async function loadProgramsList() {
+      try {
+        const res = await fetch('/api/programs');
+        const data = await res.json();
+        if (data.success) {
+          savedPrograms = data.data;
+          const select = document.getElementById('savedProgramsSelect');
+          select.innerHTML = '<option value="">New Program...</option>' + savedPrograms.map(p => `
+            <option value="${p.slug}" ${p.slug === currentProgramSlug ? 'selected' : ''}>${escapeHtml(p.title)}</option>
+          `).join('');
+        }
+      } catch (err) {
+        console.error('Failed to load programs list:', err);
+      }
+    }
+
+    async function onSelectSavedProgram(slug) {
+      if (!slug) {
+        currentProgramSlug = '';
+        loadTemplate('devotional');
         return;
       }
 
-      missionaryList.innerHTML = filtered.map(m => {
-        const initials = `${(m.firstName[0] || '').toUpperCase()}${(m.lastName[0] || '').toUpperCase()}`;
-        const dateStr = m.createdAt ? new Date(m.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : '';
-        return `
-          <div class="missionary-item">
-            <div class="avatar">${initials}</div>
-            <div class="item-info">
-              <div class="item-name">
-                ${escapeHtml(m.firstName)} ${escapeHtml(m.lastName)}
-                <span class="item-badge">Dec 2026</span>
-              </div>
-              <div class="item-email" title="${escapeHtml(m.email)}">${escapeHtml(m.email)}</div>
-            </div>
-            ${dateStr ? `<div class="item-date">${dateStr}</div>` : ''}
-          </div>
-        `;
-      }).join('');
+      try {
+        const res = await fetch(`/api/programs/${slug}`);
+        const data = await res.json();
+        if (data.success) {
+          const p = data.data;
+          currentProgramSlug = p.slug;
+          document.getElementById('pTitle').value = p.title || '';
+          document.getElementById('pOccasion').value = p.occasion || 'Batch Devotional';
+          document.getElementById('pDate').value = p.eventDate || '';
+          document.getElementById('pTime').value = p.eventTime || '';
+          document.getElementById('pLocation').value = p.location || '';
+          document.getElementById('pPresiding').value = p.presiding || '';
+          document.getElementById('pConducting').value = p.conducting || '';
+          document.getElementById('pPianist').value = p.pianist || '';
+          document.getElementById('pChorister').value = p.chorister || '';
+          document.getElementById('pOpeningHymn').value = p.openingHymn || '';
+          document.getElementById('pInvocation').value = p.invocation || '';
+          document.getElementById('pScriptureTheme').value = p.scriptureTheme || '';
+          document.getElementById('pSpeaker1').value = p.speaker1 || '';
+          document.getElementById('pMusicalNumber').value = p.musicalNumber || '';
+          document.getElementById('pSpeaker2').value = p.speaker2 || '';
+          document.getElementById('pTestimoniesNote').value = p.testimoniesNote || '';
+          document.getElementById('pClosingRemarks').value = p.closingRemarks || '';
+          document.getElementById('pClosingHymn').value = p.closingHymn || '';
+          document.getElementById('pBenediction').value = p.benediction || '';
+          document.getElementById('pNotes').value = p.additionalNotes || '';
+          updatePreview();
+          showProgramAlert(`Loaded program: ${p.title}`);
+        }
+      } catch (err) {
+        showProgramAlert('Failed to load program', true);
+      }
+    }
+
+    async function saveCurrentProgram() {
+      const payload = {
+        slug: currentProgramSlug,
+        title: document.getElementById('pTitle').value.trim() || 'December 2026 Batch Program',
+        occasion: document.getElementById('pOccasion').value,
+        eventDate: document.getElementById('pDate').value,
+        eventTime: document.getElementById('pTime').value,
+        location: document.getElementById('pLocation').value,
+        presiding: document.getElementById('pPresiding').value,
+        conducting: document.getElementById('pConducting').value,
+        pianist: document.getElementById('pPianist').value,
+        chorister: document.getElementById('pChorister').value,
+        openingHymn: document.getElementById('pOpeningHymn').value,
+        invocation: document.getElementById('pInvocation').value,
+        scriptureTheme: document.getElementById('pScriptureTheme').value,
+        speaker1: document.getElementById('pSpeaker1').value,
+        musicalNumber: document.getElementById('pMusicalNumber').value,
+        speaker2: document.getElementById('pSpeaker2').value,
+        testimoniesNote: document.getElementById('pTestimoniesNote').value,
+        closingRemarks: document.getElementById('pClosingRemarks').value,
+        closingHymn: document.getElementById('pClosingHymn').value,
+        benediction: document.getElementById('pBenediction').value,
+        additionalNotes: document.getElementById('pNotes').value
+      };
+
+      try {
+        const res = await fetch('/api/programs', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          currentProgramSlug = data.data.slug;
+          await loadProgramsList();
+          showProgramAlert('Virtual Program saved to Turso database successfully.');
+        } else {
+          showProgramAlert(data.error || 'Failed to save program.', true);
+        }
+      } catch (err) {
+        showProgramAlert('Network error saving program.', true);
+      }
+    }
+
+    async function deleteCurrentProgram() {
+      if (!currentProgramSlug) {
+        showProgramAlert('Select a saved program to delete.', true);
+        return;
+      }
+      if (!confirm('Are you sure you want to delete this program?')) return;
+
+      try {
+        const res = await fetch(`/api/programs/${currentProgramSlug}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showProgramAlert('Program deleted.');
+          currentProgramSlug = '';
+          await loadProgramsList();
+          loadTemplate('devotional');
+        }
+      } catch (err) {
+        showProgramAlert('Failed to delete program', true);
+      }
+    }
+
+    function loadTemplate(type) {
+      if (type === 'devotional') {
+        document.getElementById('pTitle').value = 'December 2026 MTC Batch Devotional';
+        document.getElementById('pOccasion').value = 'Batch Devotional';
+        document.getElementById('pDate').value = '2026-12-06';
+        document.getElementById('pTime').value = '18:00';
+        document.getElementById('pLocation').value = 'MTC Auditorium / Zoom Hall 4';
+        document.getElementById('pPresiding').value = 'MTC Branch Presidency';
+        document.getElementById('pConducting').value = 'District Leader';
+        document.getElementById('pOpeningHymn').value = 'Called to Serve (Hymn 249)';
+        document.getElementById('pInvocation').value = 'Elder Salviejo';
+        document.getElementById('pScriptureTheme').value = 'Doctrine and Covenants 4:2';
+        document.getElementById('pSpeaker1').value = 'Sister Missionary';
+        document.getElementById('pMusicalNumber').value = 'Batch Choir: I Will Go and Do';
+        document.getElementById('pSpeaker2').value = 'MTC Training Director';
+        document.getElementById('pTestimoniesNote').value = 'Batch Testimonies';
+        document.getElementById('pClosingRemarks').value = 'Conducting Officer';
+        document.getElementById('pClosingHymn').value = 'God Be with You Till We Meet Again (Hymn 152)';
+        document.getElementById('pBenediction').value = 'Elder Missionary';
+        document.getElementById('pNotes').value = 'Therefore, O ye that embark in the service of God, see that ye serve him with all your heart, might, mind and strength, that ye may stand blameless before God at the last day.';
+      } else if (type === 'farewell') {
+        document.getElementById('pTitle').value = 'Missionary Farewell and Commissioning';
+        document.getElementById('pOccasion').value = 'Missionary Farewell';
+        document.getElementById('pDate').value = '2026-11-29';
+        document.getElementById('pTime').value = '10:00';
+        document.getElementById('pLocation').value = 'Ward Chapel / Online Broadcast';
+        document.getElementById('pPresiding').value = 'Bishopric';
+        document.getElementById('pConducting').value = 'Ward Conducting Leader';
+        document.getElementById('pOpeningHymn').value = 'High on the Mountain Top (Hymn 5)';
+        document.getElementById('pInvocation').value = 'Family Member';
+        document.getElementById('pScriptureTheme').value = 'Alma 26:12';
+        document.getElementById('pSpeaker1').value = 'Youth Speaker';
+        document.getElementById('pMusicalNumber').value = 'Special Musical Number: Faith in Every Footstep';
+        document.getElementById('pSpeaker2').value = 'Departing Missionary';
+        document.getElementById('pTestimoniesNote').value = '';
+        document.getElementById('pClosingRemarks').value = 'Bishopric Representative';
+        document.getElementById('pClosingHymn').value = 'Ye Elders of Israel (Hymn 319)';
+        document.getElementById('pBenediction').value = 'Ward Member';
+        document.getElementById('pNotes').value = 'Yea, I know that I am nothing; as to my strength I am weak; therefore I will not boast of myself, but I will boast of my God, for in his strength I can do all things.';
+      }
+      currentProgramSlug = '';
+      updatePreview();
+      showProgramAlert(`Loaded ${type} template.`);
     }
 
     function escapeHtml(str) {
@@ -682,53 +1378,11 @@
         .replace(/"/g, '&quot;');
     }
 
-    searchInput.addEventListener('input', (e) => {
-      renderMissionaries(e.target.value);
-    });
-
-    registerForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      alertBox.className = 'alert';
-      
-      const email = document.getElementById('email').value.trim();
-      const firstName = document.getElementById('firstName').value.trim();
-      const lastName = document.getElementById('lastName').value.trim();
-
-      if (!email || !firstName || !lastName) {
-        showAlert('Please fill in all fields.', true);
-        return;
-      }
-
-      submitBtn.disabled = true;
-      btnText.textContent = 'Registering...';
-
-      try {
-        const res = await fetch('/api/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, firstName, lastName })
-        });
-
-        const data = await res.json();
-
-        if (res.ok && data.success) {
-          showAlert(`Welcome, ${data.missionary.firstName}! You are registered for the December 2026 batch.`);
-          registerForm.reset();
-          await loadMissionaries();
-        } else {
-          showAlert(data.error || 'Failed to register. Please try again.', true);
-        }
-      } catch (err) {
-        showAlert('Network error communicating with server.', true);
-      } finally {
-        submitBtn.disabled = false;
-        btnText.textContent = 'Register for Batch';
-      }
-    });
-
-    // Initial load
+    // Initialize
     checkHealth();
     loadMissionaries();
+    loadProgramsList();
+    updatePreview();
   </script>
 </body>
 </html>

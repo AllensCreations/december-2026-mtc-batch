@@ -1,0 +1,124 @@
+{
+  "communities": {
+    "0": [
+      "package",
+      "package_author",
+      "package_description",
+      "package_keywords",
+      "package_license",
+      "package_main",
+      "package_name",
+      "package_version",
+      "ref_dotenv",
+      "ref_libsql_client"
+    ],
+    "1": [
+      "ref_http",
+      "server",
+      "server_db",
+      "server_fs",
+      "server_http",
+      "server_path",
+      "server_public_dir",
+      "server_start"
+    ],
+    "2": [
+      "lib_db",
+      "lib_db_createclient",
+      "lib_db_fs",
+      "lib_db_path",
+      "ref_fs",
+      "ref_path"
+    ],
+    "3": [
+      "lib_db_getclient",
+      "lib_db_getdbstatus",
+      "lib_db_initdb",
+      "lib_db_listmissionaries",
+      "lib_db_registermissionary",
+      "lib_db_resolvedbconfig"
+    ],
+    "4": [
+      "server_parsejsonbody",
+      "server_sendjson",
+      "server_server",
+      "server_servestatic"
+    ],
+    "5": [
+      "package_dependencies",
+      "package_dependencies_dotenv",
+      "package_dependencies_libsql_client"
+    ],
+    "6": [
+      "package_scripts",
+      "package_scripts_dev",
+      "package_scripts_start"
+    ]
+  },
+  "cohesion": {
+    "0": 0.2,
+    "1": 0.25,
+    "2": 0.3333333333333333,
+    "3": 0.3333333333333333,
+    "4": 0.5,
+    "5": 0.6666666666666666,
+    "6": 0.6666666666666666
+  },
+  "gods": [
+    {
+      "id": "lib_db_getclient",
+      "label": "getClient()",
+      "degree": 6
+    },
+    {
+      "id": "server_server",
+      "label": "server",
+      "degree": 4
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 3
+    },
+    {
+      "id": "lib_db_resolvedbconfig",
+      "label": "resolveDbConfig()",
+      "degree": 2
+    },
+    {
+      "id": "lib_db_initdb",
+      "label": "initDb()",
+      "degree": 2
+    },
+    {
+      "id": "lib_db_registermissionary",
+      "label": "registerMissionary()",
+      "degree": 2
+    },
+    {
+      "id": "lib_db_listmissionaries",
+      "label": "listMissionaries()",
+      "degree": 2
+    },
+    {
+      "id": "lib_db_getdbstatus",
+      "label": "getDbStatus()",
+      "degree": 2
+    },
+    {
+      "id": "ref_libsql_client",
+      "label": "@libsql/client",
+      "degree": 2
+    },
+    {
+      "id": "server_sendjson",
+      "label": "sendJson()",
+      "degree": 2
+    }
+  ],
+  "surprises": [],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}
