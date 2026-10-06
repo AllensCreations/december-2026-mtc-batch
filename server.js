@@ -17,6 +17,15 @@ function sendJson(res, statusCode, data) {
   res.end(JSON.stringify(data));
 }
 
+function sendCsv(res, filename, csvContent) {
+  res.writeHead(200, {
+    'Content-Type': 'text/csv; charset=UTF-8',
+    'Content-Disposition': `attachment; filename="${filename}"`,
+    'Access-Control-Allow-Origin': '*'
+  });
+  res.end(csvContent);
+}
+
 function parseJsonBody(req) {
   return new Promise((resolve, reject) => {
     let body = '';
@@ -72,6 +81,24 @@ const server = http.createServer(async (req, res) => {
         service: 'december-2026-mtc-batch',
         db: dbStatus
       });
+    }
+
+    // Export Missionaries as CSV Sheet
+    if (pathname === '/api/missionaries/export.csv' && req.method === 'GET') {
+      const missionaries = await db.listMissionaries();
+      let csv = 'ID,First Name,Last Name,Missionary Email,Batch,Registered Date\n';
+      missionaries.forEach(m => {
+        const row = [
+          m.id,
+          `"${(m.firstName || '').replace(/"/g, '""')}"`,
+          `"${(m.lastName || '').replace(/"/g, '""')}"`,
+          `"${(m.email || '').replace(/"/g, '""')}"`,
+          `"${(m.batch || 'December 2026').replace(/"/g, '""')}"`,
+          `"${(m.createdAt || '').replace(/"/g, '""')}"`
+        ];
+        csv += row.join(',') + '\n';
+      });
+      return sendCsv(res, 'december-2026-mtc-batch-missionaries.csv', csv);
     }
 
     // List Missionaries
@@ -130,6 +157,39 @@ const server = http.createServer(async (req, res) => {
           error: 'Database error occurred during registration.'
         });
       }
+    }
+
+    // Export Program / PMG Class Invitation as CSV Sheet
+    if (pathname.startsWith('/api/programs/') && pathname.endsWith('/export.csv') && req.method === 'GET') {
+      const identifier = decodeURIComponent(pathname.replace('/api/programs/', '').replace('/export.csv', '').trim());
+      const program = await db.getProgramBySlugOrId(identifier);
+      if (!program) {
+        return sendJson(res, 404, { success: false, error: 'Program not found' });
+      }
+
+      let csv = 'Field,Details\n';
+      csv += `"Meeting / Class Title","${(program.title || '').replace(/"/g, '""')}"\n`;
+      csv += `"Occasion / Lesson Focus","${(program.occasion || '').replace(/"/g, '""')}"\n`;
+      csv += `"Event Date","${(program.eventDate || '').replace(/"/g, '""')}"\n`;
+      csv += `"Event Time","${(program.eventTime || '').replace(/"/g, '""')}"\n`;
+      csv += `"Location / Room","${(program.location || '').replace(/"/g, '""')}"\n`;
+      csv += `"Presiding Officer","${(program.presiding || '').replace(/"/g, '""')}"\n`;
+      csv += `"Conducting / Facilitator","${(program.conducting || '').replace(/"/g, '""')}"\n`;
+      csv += `"Chorister","${(program.chorister || '').replace(/"/g, '""')}"\n`;
+      csv += `"Pianist / Accompanist","${(program.pianist || '').replace(/"/g, '""')}"\n`;
+      csv += `"Opening Hymn","${(program.openingHymn || '').replace(/"/g, '""')}"\n`;
+      csv += `"Invocation (Opening Prayer)","${(program.invocation || '').replace(/"/g, '""')}"\n`;
+      csv += `"Scripture / PMG Theme","${(program.scriptureTheme || '').replace(/"/g, '""')}"\n`;
+      csv += `"Speaker 1 / Discussion Leader","${(program.speaker1 || '').replace(/"/g, '""')}"\n`;
+      csv += `"Special Musical Item / Exercise","${(program.musicalNumber || '').replace(/"/g, '""')}"\n`;
+      csv += `"Speaker 2 / Practice Roleplay","${(program.speaker2 || '').replace(/"/g, '""')}"\n`;
+      csv += `"Missionary Testimonies / Sharing","${(program.testimoniesNote || '').replace(/"/g, '""')}"\n`;
+      csv += `"Closing Remarks / Commitments","${(program.closingRemarks || '').replace(/"/g, '""')}"\n`;
+      csv += `"Closing Hymn","${(program.closingHymn || '').replace(/"/g, '""')}"\n`;
+      csv += `"Benediction (Closing Prayer)","${(program.benediction || '').replace(/"/g, '""')}"\n`;
+      csv += `"Scripture Passage / Notes","${(program.additionalNotes || '').replace(/"/g, '""')}"\n`;
+
+      return sendCsv(res, `${program.slug || 'pmg-class-invitation'}-sheet.csv`, csv);
     }
 
     // Virtual Programs: List
@@ -216,7 +276,7 @@ async function start() {
 
     server.listen(PORT, '0.0.0.0', () => {
       console.log(`\n======================================================`);
-      console.log(` December 2026 MTC Batch Portal & Program Maker`);
+      console.log(` December 2026 MTC Batch Portal & PMG Program Maker`);
       console.log(` Localhost URL: http://localhost:${PORT}`);
       console.log(` Turso Mode:    ${initResult.mode}`);
       console.log(`======================================================\n`);

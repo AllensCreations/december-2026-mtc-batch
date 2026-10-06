@@ -13,31 +13,7 @@
       "file_type": "code",
       "norm_label": "start()",
       "source_file": "server.js",
-      "source_location": "L272"
-    },
-    {
-      "id": "lib_db_deleteprogram",
-      "label": "deleteProgram()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "db.js",
-      "file_type": "code",
-      "norm_label": "deleteprogram()",
-      "source_file": "lib/db.js",
-      "source_location": "L286"
-    },
-    {
-      "id": "lib_db_getclient",
-      "label": "getClient()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "db.js",
-      "file_type": "code",
-      "norm_label": "getclient()",
-      "source_file": "lib/db.js",
-      "source_location": "L31"
+      "source_location": "L212"
     },
     {
       "id": "lib_db_getdbstatus",
@@ -52,42 +28,6 @@
       "source_location": "L298"
     },
     {
-      "id": "lib_db_getprogrambyslugorid",
-      "label": "getProgramBySlugOrId()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "db.js",
-      "file_type": "code",
-      "norm_label": "getprogrambyslugorid()",
-      "source_file": "lib/db.js",
-      "source_location": "L169"
-    },
-    {
-      "id": "lib_db_initdb",
-      "label": "initDb()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "db.js",
-      "file_type": "code",
-      "norm_label": "initdb()",
-      "source_file": "lib/db.js",
-      "source_location": "L39"
-    },
-    {
-      "id": "lib_db_listmissionaries",
-      "label": "listMissionaries()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "db.js",
-      "file_type": "code",
-      "norm_label": "listmissionaries()",
-      "source_file": "lib/db.js",
-      "source_location": "L128"
-    },
-    {
       "id": "lib_db_listprograms",
       "label": "listPrograms()",
       "_callable": true,
@@ -100,12 +40,60 @@
       "source_location": "L146"
     },
     {
+      "id": "lib_db_deleteprogram",
+      "label": "deleteProgram()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "getClient",
+      "file_type": "code",
+      "norm_label": "deleteprogram()",
+      "source_file": "lib/db.js",
+      "source_location": "L286"
+    },
+    {
+      "id": "lib_db_getclient",
+      "label": "getClient()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "getClient",
+      "file_type": "code",
+      "norm_label": "getclient()",
+      "source_file": "lib/db.js",
+      "source_location": "L31"
+    },
+    {
+      "id": "lib_db_initdb",
+      "label": "initDb()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "getClient",
+      "file_type": "code",
+      "norm_label": "initdb()",
+      "source_file": "lib/db.js",
+      "source_location": "L39"
+    },
+    {
+      "id": "lib_db_listmissionaries",
+      "label": "listMissionaries()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "getClient",
+      "file_type": "code",
+      "norm_label": "listmissionaries()",
+      "source_file": "lib/db.js",
+      "source_location": "L128"
+    },
+    {
       "id": "lib_db_registermissionary",
       "label": "registerMissionary()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
-      "community_name": "db.js",
+      "community": 3,
+      "community_name": "getClient",
       "file_type": "code",
       "norm_label": "registermissionary()",
       "source_file": "lib/db.js",
@@ -116,24 +104,12 @@
       "label": "resolveDbConfig()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
-      "community_name": "db.js",
+      "community": 3,
+      "community_name": "getClient",
       "file_type": "code",
       "norm_label": "resolvedbconfig()",
       "source_file": "lib/db.js",
       "source_location": "L8"
-    },
-    {
-      "id": "lib_db_saveprogram",
-      "label": "saveProgram()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "db.js",
-      "file_type": "code",
-      "norm_label": "saveprogram()",
-      "source_file": "lib/db.js",
-      "source_location": "L211"
     },
     {
       "id": "server_parsejsonbody",
@@ -144,18 +120,6 @@
       "community_name": "server",
       "file_type": "code",
       "norm_label": "parsejsonbody()",
-      "source_file": "server.js",
-      "source_location": "L29"
-    },
-    {
-      "id": "server_sendcsv",
-      "label": "sendCsv()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "server",
-      "file_type": "code",
-      "norm_label": "sendcsv()",
       "source_file": "server.js",
       "source_location": "L20"
     },
@@ -181,7 +145,31 @@
       "file_type": "code",
       "norm_label": "servestatic()",
       "source_file": "server.js",
-      "source_location": "L49"
+      "source_location": "L40"
+    },
+    {
+      "id": "lib_db_getprogrambyslugorid",
+      "label": "getProgramBySlugOrId()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "getProgramBySlugOrId",
+      "file_type": "code",
+      "norm_label": "getprogrambyslugorid()",
+      "source_file": "lib/db.js",
+      "source_location": "L169"
+    },
+    {
+      "id": "lib_db_saveprogram",
+      "label": "saveProgram()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "getProgramBySlugOrId",
+      "file_type": "code",
+      "norm_label": "saveprogram()",
+      "source_file": "lib/db.js",
+      "source_location": "L211"
     },
     {
       "id": "package",
@@ -412,7 +400,7 @@
       "file_type": "code",
       "norm_label": "server",
       "source_file": "server.js",
-      "source_location": "L61"
+      "source_location": "L52"
     },
     {
       "id": "package_dependencies",
@@ -485,7 +473,7 @@
       "label": "README.md",
       "_origin": "ast",
       "community": 7,
-      "community_name": "December 2026 MTC Batch Portal & Virtual Program Maker",
+      "community_name": "December 2026 MTC Batch Homepage",
       "file_type": "document",
       "node_kind": "page",
       "norm_label": "readme.md",
@@ -497,144 +485,108 @@
       "label": "1. Install Dependencies",
       "_origin": "ast",
       "community": 7,
-      "community_name": "December 2026 MTC Batch Portal & Virtual Program Maker",
+      "community_name": "December 2026 MTC Batch Homepage",
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "1. install dependencies",
       "source_file": "README.md",
-      "source_location": "L42"
+      "source_location": "L22"
     },
     {
-      "id": "readme_1_missionary_registration_batch_roster",
-      "label": "1. Missionary Registration & Batch Roster",
+      "id": "readme_2_configure_environment",
+      "label": "2. Configure Environment",
       "_origin": "ast",
       "community": 7,
-      "community_name": "December 2026 MTC Batch Portal & Virtual Program Maker",
+      "community_name": "December 2026 MTC Batch Homepage",
       "file_type": "document",
       "node_kind": "heading",
-      "norm_label": "1. missionary registration & batch roster",
+      "norm_label": "2. configure environment",
       "source_file": "README.md",
-      "source_location": "L9"
+      "source_location": "L27"
     },
     {
-      "id": "readme_2_run_the_server",
-      "label": "2. Run the Server",
+      "id": "readme_3_start_the_server",
+      "label": "3. Start the Server",
       "_origin": "ast",
       "community": 7,
-      "community_name": "December 2026 MTC Batch Portal & Virtual Program Maker",
+      "community_name": "December 2026 MTC Batch Homepage",
       "file_type": "document",
       "node_kind": "heading",
-      "norm_label": "2. run the server",
-      "source_file": "README.md",
-      "source_location": "L47"
-    },
-    {
-      "id": "readme_2_virtual_program_maker_bulletin_generator",
-      "label": "2. Virtual Program Maker & Bulletin Generator",
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "December 2026 MTC Batch Portal & Virtual Program Maker",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "2. virtual program maker & bulletin generator",
-      "source_file": "README.md",
-      "source_location": "L17"
-    },
-    {
-      "id": "readme_3_turso_database_integration",
-      "label": "3. Turso Database Integration",
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "December 2026 MTC Batch Portal & Virtual Program Maker",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "3. turso database integration",
-      "source_file": "README.md",
-      "source_location": "L29"
-    },
-    {
-      "id": "readme_4_high_craft_frontend_design",
-      "label": "4. High-Craft Frontend Design",
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "December 2026 MTC Batch Portal & Virtual Program Maker",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "4. high-craft frontend design",
+      "norm_label": "3. start the server",
       "source_file": "README.md",
       "source_location": "L35"
     },
     {
       "id": "readme_api_endpoints",
-      "label": "API Endpoints",
+      "label": "\ud83d\udce1 API Endpoints",
       "_origin": "ast",
       "community": 7,
-      "community_name": "December 2026 MTC Batch Portal & Virtual Program Maker",
+      "community_name": "December 2026 MTC Batch Homepage",
       "file_type": "document",
       "node_kind": "heading",
-      "norm_label": "api endpoints",
+      "norm_label": "\ud83d\udce1 api endpoints",
       "source_file": "README.md",
-      "source_location": "L82"
+      "source_location": "L78"
     },
     {
       "id": "readme_connecting_to_turso_cloud",
-      "label": "Connecting to Turso Cloud",
+      "label": "\ud83d\uddc4\ufe0f Connecting to Turso Cloud",
       "_origin": "ast",
       "community": 7,
-      "community_name": "December 2026 MTC Batch Portal & Virtual Program Maker",
+      "community_name": "December 2026 MTC Batch Homepage",
       "file_type": "document",
       "node_kind": "heading",
-      "norm_label": "connecting to turso cloud",
+      "norm_label": "\ud83d\uddc4\ufe0f connecting to turso cloud",
       "source_file": "README.md",
-      "source_location": "L58"
+      "source_location": "L46"
     },
     {
-      "id": "readme_december_2026_mtc_batch_portal_virtual_program_maker",
-      "label": "December 2026 MTC Batch Portal & Virtual Program Maker",
+      "id": "readme_december_2026_mtc_batch_homepage",
+      "label": "December 2026 MTC Batch Homepage",
       "_origin": "ast",
       "community": 7,
-      "community_name": "December 2026 MTC Batch Portal & Virtual Program Maker",
+      "community_name": "December 2026 MTC Batch Homepage",
       "file_type": "document",
       "node_kind": "heading",
-      "norm_label": "december 2026 mtc batch portal & virtual program maker",
+      "norm_label": "december 2026 mtc batch homepage",
       "source_file": "README.md",
       "source_location": "L1"
     },
     {
       "id": "readme_features",
-      "label": "Features",
+      "label": "\ud83c\udf1f Features",
       "_origin": "ast",
       "community": 7,
-      "community_name": "December 2026 MTC Batch Portal & Virtual Program Maker",
+      "community_name": "December 2026 MTC Batch Homepage",
       "file_type": "document",
       "node_kind": "heading",
-      "norm_label": "features",
+      "norm_label": "\ud83c\udf1f features",
       "source_file": "README.md",
       "source_location": "L7"
     },
     {
-      "id": "readme_quick_start_localhost",
-      "label": "Quick Start (Localhost)",
+      "id": "readme_project_structure",
+      "label": "\ud83d\udcc1 Project Structure",
       "_origin": "ast",
       "community": 7,
-      "community_name": "December 2026 MTC Batch Portal & Virtual Program Maker",
+      "community_name": "December 2026 MTC Batch Homepage",
       "file_type": "document",
       "node_kind": "heading",
-      "norm_label": "quick start (localhost)",
+      "norm_label": "\ud83d\udcc1 project structure",
       "source_file": "README.md",
-      "source_location": "L40"
+      "source_location": "L89"
     },
     {
-      "id": "readme_repository_structure",
-      "label": "Repository Structure",
+      "id": "readme_quick_start_localhost",
+      "label": "\ud83d\ude80 Quick Start (Localhost)",
       "_origin": "ast",
       "community": 7,
-      "community_name": "December 2026 MTC Batch Portal & Virtual Program Maker",
+      "community_name": "December 2026 MTC Batch Homepage",
       "file_type": "document",
       "node_kind": "heading",
-      "norm_label": "repository structure",
+      "norm_label": "\ud83d\ude80 quick start (localhost)",
       "source_file": "README.md",
-      "source_location": "L97"
+      "source_location": "L20"
     },
     {
       "id": "ref_fs",
@@ -796,30 +748,6 @@
     },
     {
       "source": "server_server",
-      "target": "server_sendcsv",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "server.js",
-      "source_location": "L101",
-      "weight": 1.0
-    },
-    {
-      "source": "server_server",
-      "target": "server_parsejsonbody",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "server.js",
-      "source_location": "L116",
-      "weight": 1.0
-    },
-    {
-      "source": "server_server",
       "target": "server_servestatic",
       "relation": "calls",
       "_origin": "ast",
@@ -827,7 +755,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "server.js",
-      "source_location": "L259",
+      "source_location": "L199",
       "weight": 1.0
     },
     {
@@ -839,7 +767,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "server.js",
-      "source_location": "L79",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "server_server",
+      "target": "server_parsejsonbody",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "server.js",
+      "source_location": "L89",
       "weight": 1.0
     },
     {
@@ -1139,7 +1079,7 @@
     },
     {
       "source": "readme",
-      "target": "readme_december_2026_mtc_batch_portal_virtual_program_maker",
+      "target": "readme_december_2026_mtc_batch_homepage",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -1149,29 +1089,29 @@
       "weight": 1.0
     },
     {
-      "source": "readme_december_2026_mtc_batch_portal_virtual_program_maker",
+      "source": "readme_december_2026_mtc_batch_homepage",
       "target": "readme_quick_start_localhost",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L40",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
-      "source": "readme_december_2026_mtc_batch_portal_virtual_program_maker",
+      "source": "readme_december_2026_mtc_batch_homepage",
       "target": "readme_connecting_to_turso_cloud",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L58",
+      "source_location": "L46",
       "weight": 1.0
     },
     {
-      "source": "readme_december_2026_mtc_batch_portal_virtual_program_maker",
+      "source": "readme_december_2026_mtc_batch_homepage",
       "target": "readme_features",
       "relation": "contains",
       "_origin": "ast",
@@ -1182,69 +1122,25 @@
       "weight": 1.0
     },
     {
-      "source": "readme_december_2026_mtc_batch_portal_virtual_program_maker",
+      "source": "readme_december_2026_mtc_batch_homepage",
       "target": "readme_api_endpoints",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L82",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
-      "source": "readme_december_2026_mtc_batch_portal_virtual_program_maker",
-      "target": "readme_repository_structure",
+      "source": "readme_december_2026_mtc_batch_homepage",
+      "target": "readme_project_structure",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L97",
-      "weight": 1.0
-    },
-    {
-      "source": "readme_features",
-      "target": "readme_2_virtual_program_maker_bulletin_generator",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "L17",
-      "weight": 1.0
-    },
-    {
-      "source": "readme_features",
-      "target": "readme_3_turso_database_integration",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "L29",
-      "weight": 1.0
-    },
-    {
-      "source": "readme_features",
-      "target": "readme_4_high_craft_frontend_design",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "L35",
-      "weight": 1.0
-    },
-    {
-      "source": "readme_features",
-      "target": "readme_1_missionary_registration_batch_roster",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "L9",
+      "source_location": "L89",
       "weight": 1.0
     },
     {
@@ -1255,18 +1151,29 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L42",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
       "source": "readme_quick_start_localhost",
-      "target": "readme_2_run_the_server",
+      "target": "readme_2_configure_environment",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L47",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_quick_start_localhost",
+      "target": "readme_3_start_the_server",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L35",
       "weight": 1.0
     },
     {
@@ -1293,7 +1200,7 @@
     },
     {
       "source": "server",
-      "target": "server_sendcsv",
+      "target": "server_parsejsonbody",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -1310,18 +1217,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "server.js",
-      "source_location": "L272",
-      "weight": 1.0
-    },
-    {
-      "source": "server",
-      "target": "server_parsejsonbody",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "server.js",
-      "source_location": "L29",
+      "source_location": "L212",
       "weight": 1.0
     },
     {
@@ -1354,7 +1250,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "server.js",
-      "source_location": "L49",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -1376,7 +1272,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "server.js",
-      "source_location": "L61",
+      "source_location": "L52",
       "weight": 1.0
     },
     {
@@ -1500,5 +1396,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "0f7faeae9f9b10e8cf9c12d002e2fb2735ca4d9f"
+  "built_at_commit": "59f05f5a687af1fdfe3a64d552ef09d669360d0d"
 }

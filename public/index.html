@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>December 2026 MTC Batch | Registry & Virtual Program Maker</title>
+  <title>December 2026 MTC Batch | Registry & PMG Class Invitation Maker</title>
   <style>
     :root {
       --bg-page: #f8fafc;
@@ -17,6 +17,7 @@
       --navy-dark: #0a1b30;
       --navy-light: #1e3a8a;
       --gold: #b45309;
+      --gold-dark: #92400e;
       --focus-ring: #2563eb;
       --danger: #b91c1c;
       --success: #15803d;
@@ -215,6 +216,24 @@
       box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
     }
 
+    /* Email Input with Auto @missionary.org */
+    .email-input-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .email-prefix-input {
+      flex: 1.3;
+    }
+
+    .email-domain-select {
+      flex: 1;
+      max-width: 180px;
+      background-color: var(--surface-subtle);
+      font-weight: 600;
+      color: var(--navy);
+    }
+
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -239,6 +258,7 @@
       cursor: pointer;
       border: 1px solid transparent;
       transition: background-color 0.1s, border-color 0.1s;
+      text-decoration: none;
     }
 
     .btn-primary {
@@ -271,7 +291,7 @@
     }
 
     .btn-secondary:hover {
-      background-color: #92400e;
+      background-color: var(--gold-dark);
     }
 
     .btn-danger {
@@ -314,6 +334,7 @@
       align-items: center;
       gap: 12px;
       margin-bottom: 16px;
+      flex-wrap: wrap;
     }
 
     .roster-count {
@@ -564,14 +585,6 @@
       font-style: normal;
     }
 
-    .bulletin-notes {
-      margin-top: 16px;
-      font-size: 0.85rem;
-      color: #475569;
-      line-height: 1.4;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
     /* Print Styles */
     @media print {
       body {
@@ -626,13 +639,13 @@
       <div class="nav-brand">
         <div>
           <span class="nav-brand-title">December 2026 MTC Batch</span>
-          <span class="nav-brand-sub">Missionary Intake Registry & Virtual Program Maker</span>
+          <span class="nav-brand-sub">Missionary Registry & PMG Class Invitation Maker</span>
         </div>
       </div>
 
       <div class="nav-tabs no-print">
         <button id="tabRegisterBtn" class="tab-btn active" onclick="switchTab('register')">Missionary Registration</button>
-        <button id="tabProgramBtn" class="tab-btn" onclick="switchTab('program')">Virtual Program Maker</button>
+        <button id="tabProgramBtn" class="tab-btn" onclick="switchTab('program')">PMG Class Invitation Maker</button>
       </div>
 
       <div class="no-print">
@@ -647,21 +660,33 @@
     <div id="registrationView">
       <div class="view-header">
         <h2>December 2026 Batch Intake Registry</h2>
-        <p>Register your missionary information to connect with companions and join batch meeting agendas.</p>
+        <p>Register your missionary information to connect with companions, download rosters, and receive PMG Class invitations.</p>
       </div>
 
       <div class="grid-two">
         <!-- Form Panel -->
         <div class="panel">
           <h3 class="panel-title">Missionary Registration</h3>
-          <p class="panel-subtitle">Enter your official email and name for the December 2026 intake.</p>
+          <p class="panel-subtitle">Enter your official name and missionary email. Suffix @missionary.org is included automatically.</p>
 
           <div id="regAlert" class="alert"></div>
 
           <form id="regForm" onsubmit="handleRegister(event)">
             <div class="form-group">
-              <label for="email">Missionary Email</label>
-              <input type="email" id="email" required placeholder="elder.salviejo@missionary.org" autocomplete="email">
+              <label for="emailUser">Missionary Email</label>
+              <div class="email-input-group">
+                <input type="text" id="emailUser" class="email-prefix-input" required placeholder="elder.salviejo" oninput="handleEmailInput(this.value)">
+                <select id="emailDomain" class="email-domain-select" onchange="handleDomainChange(this.value)">
+                  <option value="@missionary.org">@missionary.org</option>
+                  <option value="@gmail.com">@gmail.com</option>
+                  <option value="@outlook.com">@outlook.com</option>
+                  <option value="@yahoo.com">@yahoo.com</option>
+                  <option value="custom">Custom...</option>
+                </select>
+              </div>
+              <small id="emailPreview" style="display:block; margin-top:4px; font-size:0.75rem; color:var(--text-muted);">
+                Full Email: elder.salviejo@missionary.org
+              </small>
             </div>
 
             <div class="form-row">
@@ -689,7 +714,12 @@
               <h3 class="panel-title" style="margin-bottom: 2px;">Batch Roster</h3>
               <span id="rosterTotal" class="roster-count">0 Missionaries Registered</span>
             </div>
-            <input type="text" id="searchRoster" placeholder="Filter by name or email..." style="max-width: 200px;" oninput="filterRoster(this.value)">
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <input type="text" id="searchRoster" placeholder="Filter roster..." style="max-width: 160px;" oninput="filterRoster(this.value)">
+              <button class="btn btn-outline btn-action-small" onclick="downloadRosterCsv()" title="Download CSV Sheet">
+                Download Sheet (CSV)
+              </button>
+            </div>
           </div>
 
           <div class="table-container">
@@ -713,23 +743,25 @@
       </div>
     </div>
 
-    <!-- VIEW 2: Virtual Program Maker & Bulletin -->
+    <!-- VIEW 2: PMG Class Invitation & Virtual Program Maker -->
     <div id="programView" style="display: none;">
       <div class="view-header no-print">
-        <h2>Virtual Program Maker</h2>
-        <p>Compose, save, and print official meeting programs for the December 2026 MTC Batch.</p>
+        <h2>Preach My Gospel (PMG) Class Invitation Maker</h2>
+        <p>Compose, print, and download official PMG Class invitations and teaching schedules for the December 2026 MTC Batch.</p>
       </div>
 
       <div class="program-actions no-print">
-        <button class="btn btn-primary" onclick="saveCurrentProgram()">Save Program to Turso</button>
-        <button class="btn btn-outline" onclick="window.print()">Print Bulletin / Save PDF</button>
-        <button class="btn btn-outline" onclick="loadTemplate('devotional')">Load Devotional Template</button>
-        <button class="btn btn-outline" onclick="loadTemplate('farewell')">Load Farewell Template</button>
+        <button class="btn btn-primary" onclick="saveCurrentProgram()">Save Invitation to Turso</button>
+        <button class="btn btn-outline" onclick="downloadProgramCsv()">Download Sheet (CSV)</button>
+        <button class="btn btn-outline" onclick="window.print()">Print Invitation / PDF</button>
+        <button class="btn btn-secondary" onclick="loadTemplate('pmg')">Load PMG Class Invitation</button>
+        <button class="btn btn-outline" onclick="loadTemplate('devotional')">Batch Devotional</button>
+        <button class="btn btn-outline" onclick="loadTemplate('farewell')">Missionary Farewell</button>
 
         <div style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
-          <label style="margin: 0; font-size: 0.8rem;">Saved Programs:</label>
-          <select id="savedProgramsSelect" style="width: 220px;" onchange="onSelectSavedProgram(this.value)">
-            <option value="">New Program...</option>
+          <label style="margin: 0; font-size: 0.8rem;">Saved:</label>
+          <select id="savedProgramsSelect" style="width: 200px;" onchange="onSelectSavedProgram(this.value)">
+            <option value="">New Invitation...</option>
           </select>
           <button class="btn btn-danger btn-action-small" onclick="deleteCurrentProgram()" title="Delete Program">Delete</button>
         </div>
@@ -740,51 +772,56 @@
       <div class="program-layout">
         <!-- Editor Controls (Left) -->
         <div class="panel program-controls no-print">
-          <h3 class="panel-title">Meeting Details</h3>
+          <h3 class="panel-title">PMG Class & Meeting Details</h3>
 
           <div class="form-group">
-            <label for="pTitle">Meeting Title</label>
-            <input type="text" id="pTitle" value="December 2026 MTC Batch Devotional" oninput="updatePreview()">
+            <label for="pTitle">Class / Meeting Title</label>
+            <input type="text" id="pTitle" value="Preach My Gospel Class: Teaching the Restoration" oninput="updatePreview()">
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label for="pOccasion">Occasion / Meeting Type</label>
+              <label for="pOccasion">Lesson / PMG Chapter Focus</label>
               <select id="pOccasion" onchange="updatePreview()">
+                <option value="PMG Chapter 3: Lesson 1 (The Restoration)">PMG Chapter 3: Lesson 1 (The Restoration)</option>
+                <option value="PMG Chapter 3: Lesson 2 (Plan of Salvation)">PMG Chapter 3: Lesson 2 (Plan of Salvation)</option>
+                <option value="PMG Chapter 3: Lesson 3 (Gospel of Jesus Christ)">PMG Chapter 3: Lesson 3 (Gospel of Jesus Christ)</option>
+                <option value="PMG Chapter 1: What Is My Purpose as a Missionary?">PMG Chapter 1: Purpose as a Missionary</option>
+                <option value="PMG Chapter 4: Recognize and Understand the Spirit">PMG Chapter 4: Recognize the Spirit</option>
+                <option value="PMG Chapter 10: How Can I Teach with the Spirit?">PMG Chapter 10: Teach with the Spirit</option>
+                <option value="PMG Chapter 11: How Do I Find People to Teach?">PMG Chapter 11: How Do I Find People</option>
                 <option value="Batch Devotional">Batch Devotional</option>
                 <option value="Missionary Farewell">Missionary Farewell</option>
-                <option value="Testimony Meeting">Testimony Meeting</option>
-                <option value="District Fireside">District Fireside</option>
-                <option value="Orientation Assembly">Orientation Assembly</option>
+                <option value="District Testimony Meeting">District Testimony Meeting</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label for="pLocation">Location or Virtual Room</label>
-              <input type="text" id="pLocation" value="MTC Auditorium / Zoom Hall 4" oninput="updatePreview()">
+              <label for="pLocation">Classroom or Virtual Room</label>
+              <input type="text" id="pLocation" value="MTC Classroom 204 / Zoom Hall 4" oninput="updatePreview()">
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="pDate">Date</label>
-              <input type="date" id="pDate" value="2026-12-06" oninput="updatePreview()">
+              <input type="date" id="pDate" value="2026-12-08" oninput="updatePreview()">
             </div>
             <div class="form-group">
               <label for="pTime">Time</label>
-              <input type="time" id="pTime" value="18:00" oninput="updatePreview()">
+              <input type="time" id="pTime" value="14:00" oninput="updatePreview()">
             </div>
           </div>
 
-          <div class="agenda-section-title">Leadership & Conducting</div>
+          <div class="agenda-section-title">Leadership & Facilitators</div>
 
           <div class="role-input-row">
-            <span class="role-label">Presiding Leader:</span>
-            <input type="text" id="pPresiding" value="MTC Branch Presidency" oninput="updatePreview()">
+            <span class="role-label">Presiding Instructor:</span>
+            <input type="text" id="pPresiding" value="MTC Instructor / Branch Presidency" oninput="updatePreview()">
           </div>
 
           <div class="role-input-row">
-            <span class="role-label">Conducting Leader:</span>
+            <span class="role-label">District Facilitator:</span>
             <div style="display: flex; gap: 6px;">
               <input type="text" id="pConducting" value="District Leader" oninput="updatePreview()" style="flex: 1;">
               <select style="width: 120px;" onchange="assignToInput('pConducting', this.value)">
@@ -799,15 +836,15 @@
           </div>
 
           <div class="role-input-row">
-            <span class="role-label">Pianist / Organist:</span>
+            <span class="role-label">Accompanist / Pianist:</span>
             <input type="text" id="pPianist" value="Elder Missionary" oninput="updatePreview()">
           </div>
 
-          <div class="agenda-section-title">Order of Service</div>
+          <div class="agenda-section-title">PMG Class Agenda & Practice</div>
 
           <div class="role-input-row">
             <span class="role-label">Opening Hymn:</span>
-            <input type="text" id="pOpeningHymn" value="Called to Serve (Hymn 249)" oninput="updatePreview()">
+            <input type="text" id="pOpeningHymn" value="The Spirit of God (Hymn 2)" oninput="updatePreview()">
           </div>
 
           <div class="role-input-row">
@@ -821,14 +858,14 @@
           </div>
 
           <div class="role-input-row">
-            <span class="role-label">Scripture / Batch Theme:</span>
-            <input type="text" id="pScriptureTheme" value="Doctrine and Covenants 4:2" oninput="updatePreview()">
+            <span class="role-label">Scripture Anchor:</span>
+            <input type="text" id="pScriptureTheme" value="James 1:5 and Joseph Smith History 1:16-17" oninput="updatePreview()">
           </div>
 
           <div class="role-input-row">
-            <span class="role-label">Speaker 1:</span>
+            <span class="role-label">Principle Lead (Companion 1):</span>
             <div style="display: flex; gap: 6px;">
-              <input type="text" id="pSpeaker1" value="Batch Representative" oninput="updatePreview()" style="flex: 1;">
+              <input type="text" id="pSpeaker1" value="Elder Companion" oninput="updatePreview()" style="flex: 1;">
               <select style="width: 120px;" onchange="assignToInput('pSpeaker1', this.value)">
                 <option value="">+ Assign</option>
               </select>
@@ -836,14 +873,14 @@
           </div>
 
           <div class="role-input-row">
-            <span class="role-label">Special Musical Item:</span>
-            <input type="text" id="pMusicalNumber" value="Batch Choir: I Will Go and Do" oninput="updatePreview()">
+            <span class="role-label">Teaching Roleplay / Scenario:</span>
+            <input type="text" id="pMusicalNumber" value="Practice Scenario: Teaching the First Vision to an Investigator" oninput="updatePreview()">
           </div>
 
           <div class="role-input-row">
-            <span class="role-label">Speaker 2 / Keynote:</span>
+            <span class="role-label">Discussion Lead (Companion 2):</span>
             <div style="display: flex; gap: 6px;">
-              <input type="text" id="pSpeaker2" value="MTC Instructor" oninput="updatePreview()" style="flex: 1;">
+              <input type="text" id="pSpeaker2" value="Sister Companion" oninput="updatePreview()" style="flex: 1;">
               <select style="width: 120px;" onchange="assignToInput('pSpeaker2', this.value)">
                 <option value="">+ Assign</option>
               </select>
@@ -851,18 +888,18 @@
           </div>
 
           <div class="role-input-row">
-            <span class="role-label">Missionary Testimonies:</span>
-            <input type="text" id="pTestimoniesNote" value="Open Batch Testimonies (2 minutes each)" oninput="updatePreview()">
+            <span class="role-label">Missionary Commitments:</span>
+            <input type="text" id="pTestimoniesNote" value="Companion Goal: Memorize the First Vision and practice teaching with the Spirit" oninput="updatePreview()">
           </div>
 
           <div class="role-input-row">
-            <span class="role-label">Closing Remarks:</span>
-            <input type="text" id="pClosingRemarks" value="Conducting Officer" oninput="updatePreview()">
+            <span class="role-label">Instructor Summary:</span>
+            <input type="text" id="pClosingRemarks" value="MTC Instructor Feedback" oninput="updatePreview()">
           </div>
 
           <div class="role-input-row">
             <span class="role-label">Closing Hymn:</span>
-            <input type="text" id="pClosingHymn" value="God Be with You Till We Meet Again (Hymn 152)" oninput="updatePreview()">
+            <input type="text" id="pClosingHymn" value="Joseph Smith's First Prayer (Hymn 26)" oninput="updatePreview()">
           </div>
 
           <div class="role-input-row">
@@ -876,27 +913,27 @@
           </div>
 
           <div class="form-group" style="margin-top: 16px;">
-            <label for="pNotes">Batch Scripture Quotation or Announcements</label>
-            <textarea id="pNotes" rows="3" oninput="updatePreview()">Therefore, O ye that embark in the service of God, see that ye serve him with all your heart, might, mind and strength, that ye may stand blameless before God at the last day.</textarea>
+            <label for="pNotes">PMG Study Notes & Scripture Excerpt</label>
+            <textarea id="pNotes" rows="3" oninput="updatePreview()">Our purpose is to invite others to come unto Christ by helping them receive the restored gospel through faith in Jesus Christ and His Atonement, repentance, baptism, receiving the gift of the Holy Ghost, and enduring to the end. (Preach My Gospel, Chapter 1)</textarea>
           </div>
         </div>
 
-        <!-- Live Bulletin Paper (Right) -->
+        <!-- Live Bulletin / Invitation Card Preview (Right) -->
         <div>
           <div class="bulletin-paper" id="printableBulletin">
             <div class="bulletin-header">
               <div class="bulletin-church">Missionary Training Center</div>
-              <h1 class="bulletin-title" id="prevTitle">December 2026 MTC Batch Devotional</h1>
-              <div class="bulletin-occasion" id="prevOccasion">Batch Devotional</div>
-              <div class="bulletin-meta" id="prevMeta">December 6, 2026 at 6:00 PM | MTC Auditorium / Zoom Hall 4</div>
+              <h1 class="bulletin-title" id="prevTitle">Preach My Gospel Class: Teaching the Restoration</h1>
+              <div class="bulletin-occasion" id="prevOccasion">PMG Chapter 3: Lesson 1 (The Restoration)</div>
+              <div class="bulletin-meta" id="prevMeta">December 8, 2026 at 2:00 PM | MTC Classroom 204 / Zoom Hall 4</div>
             </div>
 
             <div class="bulletin-officers">
               <div class="officer-row">
-                <span>Presiding:</span> <span id="prevPresiding">MTC Branch Presidency</span>
+                <span>Presiding:</span> <span id="prevPresiding">MTC Instructor</span>
               </div>
               <div class="officer-row">
-                <span>Conducting:</span> <span id="prevConducting">District Leader</span>
+                <span>Facilitator:</span> <span id="prevConducting">District Leader</span>
               </div>
               <div class="officer-row">
                 <span>Chorister:</span> <span id="prevChorister">Sister Missionary</span>
@@ -906,12 +943,12 @@
               </div>
             </div>
 
-            <div class="bulletin-order-title">Order of Service</div>
+            <div class="bulletin-order-title">Class Invitation & Order of Study</div>
 
             <div class="order-list">
               <div class="order-item">
                 <span class="order-label">Opening Hymn</span>
-                <span class="order-assignee" id="prevOpeningHymn">Called to Serve (Hymn 249)</span>
+                <span class="order-assignee" id="prevOpeningHymn">The Spirit of God (Hymn 2)</span>
               </div>
 
               <div class="order-item">
@@ -920,38 +957,38 @@
               </div>
 
               <div class="order-item" id="rowScripture">
-                <span class="order-label">Scripture Theme</span>
-                <span class="order-assignee" id="prevScriptureTheme">Doctrine and Covenants 4:2</span>
+                <span class="order-label">Scripture Anchor</span>
+                <span class="order-assignee" id="prevScriptureTheme">James 1:5 and JSH 1:16-17</span>
               </div>
 
               <div class="order-item" id="rowSpeaker1">
-                <span class="order-label">Speaker</span>
-                <span class="order-assignee" id="prevSpeaker1">Batch Representative</span>
+                <span class="order-label">Principle Lead</span>
+                <span class="order-assignee" id="prevSpeaker1">Elder Companion</span>
               </div>
 
               <div class="order-item" id="rowMusical">
-                <span class="order-label">Special Musical Number</span>
-                <span class="order-assignee" id="prevMusicalNumber">Batch Choir: I Will Go and Do</span>
+                <span class="order-label">Teaching Roleplay</span>
+                <span class="order-assignee" id="prevMusicalNumber">Practice Scenario: Teaching the First Vision</span>
               </div>
 
               <div class="order-item" id="rowSpeaker2">
-                <span class="order-label">Speaker</span>
-                <span class="order-assignee" id="prevSpeaker2">MTC Instructor</span>
+                <span class="order-label">Discussion Lead</span>
+                <span class="order-assignee" id="prevSpeaker2">Sister Companion</span>
               </div>
 
               <div class="order-item" id="rowTestimonies">
-                <span class="order-label">Missionary Testimonies</span>
-                <span class="order-assignee" id="prevTestimonies">Open Batch Testimonies (2 minutes each)</span>
+                <span class="order-label">Missionary Commitments</span>
+                <span class="order-assignee" id="prevTestimonies">Companion Goal & Practice</span>
               </div>
 
               <div class="order-item" id="rowClosingRemarks">
-                <span class="order-label">Closing Remarks</span>
-                <span class="order-assignee" id="prevClosingRemarks">Conducting Officer</span>
+                <span class="order-label">Instructor Summary</span>
+                <span class="order-assignee" id="prevClosingRemarks">MTC Instructor Feedback</span>
               </div>
 
               <div class="order-item">
                 <span class="order-label">Closing Hymn</span>
-                <span class="order-assignee" id="prevClosingHymn">God Be with You Till We Meet Again (Hymn 152)</span>
+                <span class="order-assignee" id="prevClosingHymn">Joseph Smith's First Prayer (Hymn 26)</span>
               </div>
 
               <div class="order-item">
@@ -961,8 +998,8 @@
             </div>
 
             <div class="bulletin-scripture" id="scriptureBox">
-              <div id="prevNotes">Therefore, O ye that embark in the service of God, see that ye serve him with all your heart, might, mind and strength, that ye may stand blameless before God at the last day.</div>
-              <div class="bulletin-scripture-ref" id="prevNotesRef">December 2026 Batch Scripture</div>
+              <div id="prevNotes">Our purpose is to invite others to come unto Christ by helping them receive the restored gospel through faith in Jesus Christ and His Atonement.</div>
+              <div class="bulletin-scripture-ref" id="prevNotesRef">Preach My Gospel Study Anchor</div>
             </div>
           </div>
         </div>
@@ -972,7 +1009,7 @@
   </main>
 
   <footer class="no-print">
-    December 2026 MTC Batch Portal and Virtual Program Maker. Connected with Turso SQLite Database.
+    December 2026 MTC Batch Portal and PMG Class Invitation Maker. Connected with Turso SQLite Database.
   </footer>
 
   <script>
@@ -998,6 +1035,47 @@
         progBtn.classList.add('active');
         updatePreview();
       }
+    }
+
+    /* Email auto @missionary.org helper */
+    function getFullEmail() {
+      const user = document.getElementById('emailUser').value.trim();
+      const domain = document.getElementById('emailDomain').value;
+      if (!user) return '';
+      if (domain === 'custom') {
+        return user;
+      }
+      if (user.includes('@')) {
+        return user;
+      }
+      return `${user}${domain}`;
+    }
+
+    function handleEmailInput(val) {
+      const preview = document.getElementById('emailPreview');
+      const domainSelect = document.getElementById('emailDomain');
+
+      if (val.includes('@')) {
+        // If user typed custom email with @, switch select to custom
+        domainSelect.value = 'custom';
+      }
+      preview.textContent = `Full Email: ${getFullEmail() || 'elder.salviejo@missionary.org'}`;
+    }
+
+    function handleDomainChange(domain) {
+      const userInput = document.getElementById('emailUser');
+      if (domain === 'custom') {
+        if (!userInput.value.includes('@') && userInput.value) {
+          userInput.value = `${userInput.value}@missionary.org`;
+        }
+        userInput.placeholder = 'elder.salviejo@missionary.org';
+      } else {
+        if (userInput.value.includes('@')) {
+          userInput.value = userInput.value.split('@')[0];
+        }
+        userInput.placeholder = 'elder.salviejo';
+      }
+      handleEmailInput(userInput.value);
     }
 
     async function checkHealth() {
@@ -1045,10 +1123,10 @@
       tbody.innerHTML = list.map(m => `
         <tr>
           <td><strong>${escapeHtml(m.firstName)} ${escapeHtml(m.lastName)}</strong></td>
-          <td style="color: var(--navy-light);">${escapeHtml(m.email)}</td>
+          <td style="color: var(--navy-light); font-weight: 500;">${escapeHtml(m.email)}</td>
           <td><span class="badge-tag">${escapeHtml(m.batch || 'Dec 2026')}</span></td>
           <td>
-            <button class="btn-action-small" onclick="quickAssignToProgram('${escapeHtml(m.firstName)} ${escapeHtml(m.lastName)}')">Assign to Program</button>
+            <button class="btn-action-small" onclick="quickAssignToProgram('${escapeHtml(m.firstName)} ${escapeHtml(m.lastName)}')">Assign to PMG</button>
           </td>
         </tr>
       `).join('');
@@ -1068,7 +1146,7 @@
       const alert = document.getElementById('regAlert');
       const btn = document.getElementById('regBtn');
 
-      const email = document.getElementById('email').value.trim();
+      const email = getFullEmail();
       const firstName = document.getElementById('firstName').value.trim();
       const lastName = document.getElementById('lastName').value.trim();
 
@@ -1087,6 +1165,8 @@
           alert.textContent = `Missionary ${data.missionary.firstName} ${data.missionary.lastName} registered successfully.`;
           alert.className = 'alert success';
           document.getElementById('regForm').reset();
+          document.getElementById('emailDomain').value = '@missionary.org';
+          handleEmailInput('');
           await loadMissionaries();
         } else {
           alert.textContent = data.error || 'Failed to register missionary.';
@@ -1124,7 +1204,7 @@
       switchTab('program');
       document.getElementById('pSpeaker1').value = name;
       updatePreview();
-      showProgramAlert(`Assigned ${name} as Speaker 1 in the Virtual Program.`, false);
+      showProgramAlert(`Assigned ${name} as Principle Lead in the PMG Class Invitation.`, false);
     }
 
     function showProgramAlert(msg, isError = false) {
@@ -1135,7 +1215,7 @@
     }
 
     function updatePreview() {
-      document.getElementById('prevTitle').textContent = document.getElementById('pTitle').value || 'MTC Batch Program';
+      document.getElementById('prevTitle').textContent = document.getElementById('pTitle').value || 'PMG Class Invitation';
       document.getElementById('prevOccasion').textContent = document.getElementById('pOccasion').value;
 
       const dateVal = document.getElementById('pDate').value;
@@ -1152,10 +1232,10 @@
       }
 
       document.getElementById('prevMeta').textContent = `${dateFormatted || 'Date'} at ${timeVal || 'Time'} | ${locVal || 'Location'}`;
-      document.getElementById('prevPresiding').textContent = document.getElementById('pPresiding').value || 'Branch Presidency';
-      document.getElementById('prevConducting').textContent = document.getElementById('pConducting').value || 'Conducting Officer';
+      document.getElementById('prevPresiding').textContent = document.getElementById('pPresiding').value || 'MTC Instructor';
+      document.getElementById('prevConducting').textContent = document.getElementById('pConducting').value || 'Facilitator';
       document.getElementById('prevChorister').textContent = document.getElementById('pChorister').value || 'Chorister';
-      document.getElementById('prevPianist').textContent = document.getElementById('pPianist').value || 'Pianist';
+      document.getElementById('prevPianist').textContent = document.getElementById('pPianist').value || 'Accompanist';
 
       document.getElementById('prevOpeningHymn').textContent = document.getElementById('pOpeningHymn').value || 'Opening Hymn';
       document.getElementById('prevInvocation').textContent = document.getElementById('pInvocation').value || 'Selected Missionary';
@@ -1202,6 +1282,46 @@
       }
     }
 
+    /* Download Sheet Functions */
+    function downloadRosterCsv() {
+      window.location.href = '/api/missionaries/export.csv';
+    }
+
+    function downloadProgramCsv() {
+      if (currentProgramSlug) {
+        window.location.href = `/api/programs/${currentProgramSlug}/export.csv`;
+      } else {
+        // Generate on client side if not yet saved
+        const pTitle = document.getElementById('pTitle').value || 'PMG Class Invitation';
+        const pOccasion = document.getElementById('pOccasion').value;
+        const pDate = document.getElementById('pDate').value;
+        const pTime = document.getElementById('pTime').value;
+        const pLocation = document.getElementById('pLocation').value;
+        const pSpeaker1 = document.getElementById('pSpeaker1').value;
+        const pSpeaker2 = document.getElementById('pSpeaker2').value;
+        const pNotes = document.getElementById('pNotes').value;
+
+        let csv = 'Field,Details\n';
+        csv += `"Meeting / Class Title","${pTitle.replace(/"/g, '""')}"\n`;
+        csv += `"Lesson Focus / Occasion","${pOccasion.replace(/"/g, '""')}"\n`;
+        csv += `"Date","${pDate}"\n`;
+        csv += `"Time","${pTime}"\n`;
+        csv += `"Location","${pLocation.replace(/"/g, '""')}"\n`;
+        csv += `"Principle Lead (Companion 1)","${pSpeaker1.replace(/"/g, '""')}"\n`;
+        csv += `"Discussion Lead (Companion 2)","${pSpeaker2.replace(/"/g, '""')}"\n`;
+        csv += `"Study Notes","${pNotes.replace(/"/g, '""')}"\n`;
+
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'pmg-class-invitation-sheet.csv');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
+
     async function loadProgramsList() {
       try {
         const res = await fetch('/api/programs');
@@ -1209,7 +1329,7 @@
         if (data.success) {
           savedPrograms = data.data;
           const select = document.getElementById('savedProgramsSelect');
-          select.innerHTML = '<option value="">New Program...</option>' + savedPrograms.map(p => `
+          select.innerHTML = '<option value="">New Invitation...</option>' + savedPrograms.map(p => `
             <option value="${p.slug}" ${p.slug === currentProgramSlug ? 'selected' : ''}>${escapeHtml(p.title)}</option>
           `).join('');
         }
@@ -1221,7 +1341,7 @@
     async function onSelectSavedProgram(slug) {
       if (!slug) {
         currentProgramSlug = '';
-        loadTemplate('devotional');
+        loadTemplate('pmg');
         return;
       }
 
@@ -1232,7 +1352,7 @@
           const p = data.data;
           currentProgramSlug = p.slug;
           document.getElementById('pTitle').value = p.title || '';
-          document.getElementById('pOccasion').value = p.occasion || 'Batch Devotional';
+          document.getElementById('pOccasion').value = p.occasion || 'PMG Chapter 3: Lesson 1 (The Restoration)';
           document.getElementById('pDate').value = p.eventDate || '';
           document.getElementById('pTime').value = p.eventTime || '';
           document.getElementById('pLocation').value = p.location || '';
@@ -1262,7 +1382,7 @@
     async function saveCurrentProgram() {
       const payload = {
         slug: currentProgramSlug,
-        title: document.getElementById('pTitle').value.trim() || 'December 2026 Batch Program',
+        title: document.getElementById('pTitle').value.trim() || 'December 2026 PMG Class Invitation',
         occasion: document.getElementById('pOccasion').value,
         eventDate: document.getElementById('pDate').value,
         eventTime: document.getElementById('pTime').value,
@@ -1294,7 +1414,7 @@
         if (res.ok && data.success) {
           currentProgramSlug = data.data.slug;
           await loadProgramsList();
-          showProgramAlert('Virtual Program saved to Turso database successfully.');
+          showProgramAlert('PMG Class Invitation saved to Turso database successfully.');
         } else {
           showProgramAlert(data.error || 'Failed to save program.', true);
         }
@@ -1317,7 +1437,7 @@
           showProgramAlert('Program deleted.');
           currentProgramSlug = '';
           await loadProgramsList();
-          loadTemplate('devotional');
+          loadTemplate('pmg');
         }
       } catch (err) {
         showProgramAlert('Failed to delete program', true);
@@ -1325,7 +1445,26 @@
     }
 
     function loadTemplate(type) {
-      if (type === 'devotional') {
+      if (type === 'pmg') {
+        document.getElementById('pTitle').value = 'Preach My Gospel Class: Teaching the Restoration';
+        document.getElementById('pOccasion').value = 'PMG Chapter 3: Lesson 1 (The Restoration)';
+        document.getElementById('pDate').value = '2026-12-08';
+        document.getElementById('pTime').value = '14:00';
+        document.getElementById('pLocation').value = 'MTC Classroom 204 / Zoom Hall 4';
+        document.getElementById('pPresiding').value = 'MTC Instructor';
+        document.getElementById('pConducting').value = 'District Leader';
+        document.getElementById('pOpeningHymn').value = 'The Spirit of God (Hymn 2)';
+        document.getElementById('pInvocation').value = 'Elder Salviejo';
+        document.getElementById('pScriptureTheme').value = 'James 1:5 and Joseph Smith History 1:16-17';
+        document.getElementById('pSpeaker1').value = 'Elder Companion';
+        document.getElementById('pMusicalNumber').value = 'Practice Scenario: Teaching the First Vision';
+        document.getElementById('pSpeaker2').value = 'Sister Companion';
+        document.getElementById('pTestimoniesNote').value = 'Companion Practice Commitments';
+        document.getElementById('pClosingRemarks').value = 'MTC Instructor Feedback';
+        document.getElementById('pClosingHymn').value = 'Joseph Smith\'s First Prayer (Hymn 26)';
+        document.getElementById('pBenediction').value = 'Sister Missionary';
+        document.getElementById('pNotes').value = 'Our purpose is to invite others to come unto Christ by helping them receive the restored gospel through faith in Jesus Christ and His Atonement, repentance, baptism, receiving the gift of the Holy Ghost, and enduring to the end. (Preach My Gospel, Chapter 1)';
+      } else if (type === 'devotional') {
         document.getElementById('pTitle').value = 'December 2026 MTC Batch Devotional';
         document.getElementById('pOccasion').value = 'Batch Devotional';
         document.getElementById('pDate').value = '2026-12-06';
@@ -1366,7 +1505,7 @@
       }
       currentProgramSlug = '';
       updatePreview();
-      showProgramAlert(`Loaded ${type} template.`);
+      showProgramAlert(`Loaded ${type.toUpperCase()} template.`);
     }
 
     function escapeHtml(str) {
@@ -1382,7 +1521,7 @@
     checkHealth();
     loadMissionaries();
     loadProgramsList();
-    updatePreview();
+    loadTemplate('pmg');
   </script>
 </body>
 </html>

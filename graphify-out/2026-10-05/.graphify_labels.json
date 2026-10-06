@@ -2,8 +2,10 @@
   "0": "package.json",
   "1": "server.js",
   "2": "db.js",
+  "3": "getClient",
   "4": "server",
   "5": "dependencies",
   "6": "scripts",
-  "7": "December 2026 MTC Batch Portal & Virtual Program Maker"
+  "7": "December 2026 MTC Batch Homepage",
+  "8": "getProgramBySlugOrId"
 }
